@@ -54,7 +54,7 @@ function vergelijk(array $source, array $target): array
                 $sqlOut[] = $stmt;
                 $sqlOut[] = "";
                 $items[]  = ['type' => 'add', 'tabel' => $table, 'kolom' => $colName,
-                             'omschrijving' => 'Kolom ontbreekt in dev → wordt toegevoegd'];
+                             'omschrijving' => 'Kolom ontbreekt in live → wordt toegevoegd'];
             }
 
             $prev = $colName;
@@ -65,7 +65,7 @@ function vergelijk(array $source, array $target): array
                 $sqlOut[] = "-- LET OP: kolom `$colName` bestaat in doel `$table` maar niet in bron (niet verwijderd)";
                 $sqlOut[] = "";
                 $items[]  = ['type' => 'only-dev', 'tabel' => $table, 'kolom' => $colName,
-                             'omschrijving' => 'Staat alleen in dev — niet aanwezig in live'];
+                             'omschrijving' => 'Staat alleen in live — niet aanwezig in dev'];
             }
         }
     }
@@ -75,7 +75,7 @@ function vergelijk(array $source, array $target): array
             $sqlOut[] = "-- LET OP: tabel `$table` bestaat alleen in dev (niet verwijderd)";
             $sqlOut[] = "";
             $items[]  = ['type' => 'only-dev', 'tabel' => $table, 'kolom' => '—',
-                         'omschrijving' => 'Tabel staat alleen in dev — niet aanwezig in live'];
+                         'omschrijving' => 'Tabel staat alleen in live — niet aanwezig in dev'];
         }
     }
 

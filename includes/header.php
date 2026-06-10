@@ -31,9 +31,14 @@
 <body>
 <?php
 $navProjecten = [
-    ['naam' => 'SQL Vergelijker', 'href' => 'projects/SQL_compare/db_vergelijker.php', 'slug' => 'SQL_compare'],
-    // Voeg hier nieuwe projecten toe:
-    // ['naam' => 'Naam Project', 'href' => 'projects/map/bestand.php', 'slug' => 'map'],
+    [
+        'naam'         => 'SQL Vergelijker',
+        'href'         => 'projects/SQL_compare/db_vergelijker.php',
+        'slug'         => 'SQL_compare',
+        'emoji'        => '🗄️',
+        'beschrijving' => 'Vergelijk twee databasestructuren en bekijk de verschillen tussen tabellen en kolommen.',
+        'tag'          => 'SQL / PHP',
+    ],
 ];
 
 $huidigUri = $_SERVER['REQUEST_URI'] ?? '';
