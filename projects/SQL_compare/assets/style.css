@@ -1,6 +1,3 @@
-/* Dropzone padding (body-stijlen komen uit het globale thema) */
-body { padding: 2.5rem 1rem 4rem; }
-
 /* JS-gestuurde dropzone states */
 .dropzone:hover,
 .dropzone.sleep              { border-color: #4cc38a; }

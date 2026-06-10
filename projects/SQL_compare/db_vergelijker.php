@@ -53,15 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['bron'], $_FILES['doe
 
 $pageTitle = 'Database structuur vergelijken';
 $rootPath  = '../../';
-$headExtra = <<<'HTML'
-<style>
-.dropzone.sleep              { border-color: #4cc38a; }
-.dropzone.gevuld             { border-style: solid; border-color: #2f9e6e; }
-.dz-bestand                  { display: none; }
-.dropzone.gevuld .dz-bestand { display: block; }
-table tr:last-child td       { border-bottom: 0; }
-</style>
-HTML;
+$headExtra = '<link rel="stylesheet" href="assets/style.css">';
 
 require_once __DIR__ . '/../../includes/header.php';
 ?>

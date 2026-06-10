@@ -15,7 +15,7 @@ require_once __DIR__ . '/includes/header.php';
     <div class="grid grid-cols-[repeat(auto-fill,minmax(260px,1fr))] gap-6">
 
         <a class="bg-paneel border border-rand rounded-xl p-7 no-underline flex flex-col gap-2.5 transition-all hover:-translate-y-1 hover:border-accent hover:shadow-lg"
-           href="projects/SQL_compare/db_vergelijker.php">
+            href="projects/SQL_compare/db_vergelijker.php">
             <div class="text-[2rem]">🗄️</div>
             <h2 class="text-[1.1rem] text-tekst font-semibold">SQL Vergelijker</h2>
             <p class="text-[.9rem] text-gedempt flex-1">Vergelijk twee databasestructuren en bekijk de verschillen tussen tabellen en kolommen.</p>
