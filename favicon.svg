@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- Achtergrond -->
+  <rect width="32" height="32" rx="7" fill="#1c2128"/>
+  <!-- Steel (rechthoek gedraaid -45°) -->
+  <rect x="5" y="15" width="20" height="4" rx="2" fill="#4cc38a" transform="rotate(-45 15 17)"/>
+  <!-- Hoofd: ring -->
+  <circle cx="22" cy="10" r="6" fill="#4cc38a"/>
+  <circle cx="22" cy="10" r="3" fill="#1c2128"/>
+</svg>

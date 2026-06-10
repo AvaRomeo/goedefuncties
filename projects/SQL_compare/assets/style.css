@@ -1,0 +1,12 @@
+/* Dropzone padding (body-stijlen komen uit het globale thema) */
+body { padding: 2.5rem 1rem 4rem; }
+
+/* JS-gestuurde dropzone states */
+.dropzone:hover,
+.dropzone.sleep              { border-color: #4cc38a; }
+.dropzone.gevuld             { border-style: solid; border-color: #2f9e6e; }
+.dz-bestand                  { display: none; }
+.dropzone.gevuld .dz-bestand { display: block; }
+
+/* Laatste tabelrij geen border */
+table tr:last-child td { border-bottom: 0; }
