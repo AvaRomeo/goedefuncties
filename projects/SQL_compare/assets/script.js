@@ -1,5 +1,5 @@
 document.querySelectorAll('.dropzone').forEach(zone => {
-    const input   = zone.querySelector('input');
+    const input = zone.querySelector('input');
     const bestand = zone.querySelector('.dz-bestand');
 
     input.addEventListener('change', () => {

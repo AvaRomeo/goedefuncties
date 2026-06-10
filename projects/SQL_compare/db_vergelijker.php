@@ -104,39 +104,39 @@ require_once __DIR__ . '/../../includes/header.php';
         </div>
 
         <?php if (!empty($items)): ?>
-        <?php
-        $tagConfig = [
-            'tabel'    => ['label' => 'NIEUW',      'class' => 'bg-accent/20 text-accent'],
-            'add'      => ['label' => 'ADD',         'class' => 'bg-accent/20 text-accent'],
-            'modify'   => ['label' => 'MODIFY',      'class' => 'bg-waarschuwing/20 text-waarschuwing'],
-            'only-dev' => ['label' => 'ALLEEN DEV',  'class' => 'bg-fout/20 text-fout'],
-        ];
-        ?>
-        <table class="w-full border-collapse bg-paneel rounded-xl overflow-hidden text-[.9rem]">
-            <thead>
-                <tr>
-                    <?php foreach (['Type', 'Tabel', 'Kolom', 'Omschrijving'] as $th): ?>
-                    <th class="text-left px-3 py-2 border-b border-rand text-gedempt font-semibold text-xs uppercase tracking-[.04em]">
-                        <?= $th ?>
-                    </th>
+            <?php
+            $tagConfig = [
+                'tabel'    => ['label' => 'NIEUW',      'class' => 'bg-accent/20 text-accent'],
+                'add'      => ['label' => 'ADD',         'class' => 'bg-accent/20 text-accent'],
+                'modify'   => ['label' => 'MODIFY',      'class' => 'bg-waarschuwing/20 text-waarschuwing'],
+                'only-dev' => ['label' => 'ALLEEN DEV',  'class' => 'bg-fout/20 text-fout'],
+            ];
+            ?>
+            <table class="w-full border-collapse bg-paneel rounded-xl overflow-hidden text-[.9rem]">
+                <thead>
+                    <tr>
+                        <?php foreach (['Type', 'Tabel', 'Kolom', 'Omschrijving'] as $th): ?>
+                            <th class="text-left px-3 py-2 border-b border-rand text-gedempt font-semibold text-xs uppercase tracking-[.04em]">
+                                <?= $th ?>
+                            </th>
+                        <?php endforeach; ?>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($items as $item): ?>
+                        <tr>
+                            <td class="px-3 py-2 border-b border-rand">
+                                <span class="text-xs font-bold px-2 py-0.5 rounded <?= $tagConfig[$item['type']]['class'] ?>">
+                                    <?= $tagConfig[$item['type']]['label'] ?>
+                                </span>
+                            </td>
+                            <td class="px-3 py-2 border-b border-rand font-mono text-[.85rem]"><?= htmlspecialchars($item['tabel']) ?></td>
+                            <td class="px-3 py-2 border-b border-rand font-mono text-[.85rem]"><?= htmlspecialchars($item['kolom']) ?></td>
+                            <td class="px-3 py-2 border-b border-rand"><?= htmlspecialchars($item['omschrijving']) ?></td>
+                        </tr>
                     <?php endforeach; ?>
-                </tr>
-            </thead>
-            <tbody>
-            <?php foreach ($items as $item): ?>
-                <tr>
-                    <td class="px-3 py-2 border-b border-rand">
-                        <span class="text-xs font-bold px-2 py-0.5 rounded <?= $tagConfig[$item['type']]['class'] ?>">
-                            <?= $tagConfig[$item['type']]['label'] ?>
-                        </span>
-                    </td>
-                    <td class="px-3 py-2 border-b border-rand font-mono text-[.85rem]"><?= htmlspecialchars($item['tabel']) ?></td>
-                    <td class="px-3 py-2 border-b border-rand font-mono text-[.85rem]"><?= htmlspecialchars($item['kolom']) ?></td>
-                    <td class="px-3 py-2 border-b border-rand"><?= htmlspecialchars($item['omschrijving']) ?></td>
-                </tr>
-            <?php endforeach; ?>
-            </tbody>
-        </table>
+                </tbody>
+            </table>
         <?php endif; ?>
 
         <div class="mt-6">

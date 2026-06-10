@@ -15,13 +15,13 @@ require_once __DIR__ . '/includes/header.php';
     <div class="grid grid-cols-[repeat(auto-fill,minmax(260px,1fr))] gap-6">
 
         <?php foreach ($navProjecten as $project): ?>
-        <a class="bg-paneel border border-rand rounded-xl p-7 no-underline flex flex-col gap-2.5 transition-all hover:-translate-y-1 hover:border-accent hover:shadow-lg"
-            href="<?= htmlspecialchars($project['href']) ?>">
-            <div class="text-[2rem]"><?= $project['emoji'] ?></div>
-            <h2 class="text-[1.1rem] text-tekst font-semibold"><?= htmlspecialchars($project['naam']) ?></h2>
-            <p class="text-[.9rem] text-gedempt flex-1"><?= htmlspecialchars($project['beschrijving']) ?></p>
-            <span class="self-start bg-accent/20 text-accent text-xs px-2.5 py-0.5 rounded-full font-medium"><?= htmlspecialchars($project['tag']) ?></span>
-        </a>
+            <a class="bg-paneel border border-rand rounded-xl p-7 no-underline flex flex-col gap-2.5 transition-all hover:-translate-y-1 hover:border-accent hover:shadow-lg"
+                href="<?= htmlspecialchars($project['href']) ?>">
+                <div class="text-[2rem]"><?= $project['emoji'] ?></div>
+                <h2 class="text-[1.1rem] text-tekst font-semibold"><?= htmlspecialchars($project['naam']) ?></h2>
+                <p class="text-[.9rem] text-gedempt flex-1"><?= htmlspecialchars($project['beschrijving']) ?></p>
+                <span class="self-start bg-accent/20 text-accent text-xs px-2.5 py-0.5 rounded-full font-medium"><?= htmlspecialchars($project['tag']) ?></span>
+            </a>
         <?php endforeach; ?>
 
     </div>

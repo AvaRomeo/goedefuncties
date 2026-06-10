@@ -39,8 +39,12 @@ function vergelijk(array $source, array $target): array
             $sqlOut[] = "-- Tabel `$table` ontbreekt in doel";
             $sqlOut[] = $info['create'];
             $sqlOut[] = "";
-            $items[]  = ['type' => 'tabel', 'tabel' => $table, 'kolom' => '—',
-                         'omschrijving' => 'Tabel ontbreekt in doel → wordt aangemaakt'];
+            $items[]  = [
+                'type' => 'tabel',
+                'tabel' => $table,
+                'kolom' => '—',
+                'omschrijving' => 'Tabel ontbreekt in doel → wordt aangemaakt'
+            ];
             continue;
         }
 
@@ -53,8 +57,12 @@ function vergelijk(array $source, array $target): array
                 $sqlOut[] = "-- Kolom `$colName` ontbreekt in `$table`";
                 $sqlOut[] = $stmt;
                 $sqlOut[] = "";
-                $items[]  = ['type' => 'add', 'tabel' => $table, 'kolom' => $colName,
-                             'omschrijving' => 'Kolom ontbreekt in live → wordt toegevoegd'];
+                $items[]  = [
+                    'type' => 'add',
+                    'tabel' => $table,
+                    'kolom' => $colName,
+                    'omschrijving' => 'Kolom ontbreekt in live → wordt toegevoegd'
+                ];
             }
 
             $prev = $colName;
@@ -64,8 +72,12 @@ function vergelijk(array $source, array $target): array
             if (!isset($info['columns'][$colName])) {
                 $sqlOut[] = "-- LET OP: kolom `$colName` bestaat in doel `$table` maar niet in bron (niet verwijderd)";
                 $sqlOut[] = "";
-                $items[]  = ['type' => 'only-dev', 'tabel' => $table, 'kolom' => $colName,
-                             'omschrijving' => 'Staat alleen in live — niet aanwezig in dev'];
+                $items[]  = [
+                    'type' => 'only-dev',
+                    'tabel' => $table,
+                    'kolom' => $colName,
+                    'omschrijving' => 'Staat alleen in live — niet aanwezig in dev'
+                ];
             }
         }
     }
@@ -74,8 +86,12 @@ function vergelijk(array $source, array $target): array
         if (!isset($source[$table])) {
             $sqlOut[] = "-- LET OP: tabel `$table` bestaat alleen in dev (niet verwijderd)";
             $sqlOut[] = "";
-            $items[]  = ['type' => 'only-dev', 'tabel' => $table, 'kolom' => '—',
-                         'omschrijving' => 'Tabel staat alleen in live — niet aanwezig in dev'];
+            $items[]  = [
+                'type' => 'only-dev',
+                'tabel' => $table,
+                'kolom' => '—',
+                'omschrijving' => 'Tabel staat alleen in live — niet aanwezig in dev'
+            ];
         }
     }
 
