@@ -10,6 +10,11 @@
 <body class="bg-gray-100 min-h-screen">
 
     <nav class="bg-white shadow-sm px-6 py-4 flex items-center gap-6">
+        <a href="http://goedefuncties.test/" class="text-sm text-gray-400 hover:text-indigo-600 transition-colors flex items-center gap-1">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+            Keuzemenu
+        </a>
+        <span class="text-gray-200">|</span>
         <a href="/" class="text-xl font-bold text-indigo-600 tracking-tight">Budget</a>
         <div class="flex gap-4 text-sm">
             <a href="{{ route('rekeningen.index') }}" class="text-gray-600 hover:text-indigo-600 transition-colors {{ request()->is('rekeningen*') ? 'text-indigo-600 font-medium' : '' }}">Rekeningen</a>

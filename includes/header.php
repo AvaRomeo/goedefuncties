@@ -68,6 +68,14 @@
             'beschrijving' => 'Beheer je inkomsten en uitgaven, importeer transacties en houd je budget bij.',
             'tag'          => 'PHP / MySQL',
         ],
+        [
+            'naam'         => 'GPX Viewer',
+            'href'         => 'projects/gpx_viewer/index.php',
+            'slug'         => 'gpx_viewer',
+            'emoji'        => '🗺️',
+            'beschrijving' => 'Laad een GPX-bestand en bekijk de route op een interactieve kaart met statistieken.',
+            'tag'          => 'Leaflet / GPX',
+        ],
     ];
 
     $huidigUri = $_SERVER['REQUEST_URI'] ?? '';
