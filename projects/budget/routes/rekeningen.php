@@ -1,12 +1,13 @@
 <?php
 
+use App\Http\Controllers\RekeningController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('rekeningen')->name('rekeningen.')->group(function () {
-    Route::get('/', fn() => 'rekeningen index')->name('index');
-    Route::get('/aanmaken', fn() => 'rekeningen aanmaken')->name('aanmaken');
-    Route::post('/', fn() => 'rekeningen opslaan')->name('opslaan');
-    Route::get('/{rekening}/bewerken', fn($rekening) => 'rekening bewerken')->name('bewerken');
-    Route::put('/{rekening}', fn($rekening) => 'rekening bijwerken')->name('bijwerken');
-    Route::delete('/{rekening}', fn($rekening) => 'rekening verwijderen')->name('verwijderen');
+    Route::get('/',                      [RekeningController::class, 'index'])->name('index');
+    Route::get('/aanmaken',              [RekeningController::class, 'aanmaken'])->name('aanmaken');
+    Route::post('/',                     [RekeningController::class, 'opslaan'])->name('opslaan');
+    Route::get('/{rekening}/bewerken',   [RekeningController::class, 'bewerken'])->name('bewerken');
+    Route::put('/{rekening}',            [RekeningController::class, 'bijwerken'])->name('bijwerken');
+    Route::delete('/{rekening}',         [RekeningController::class, 'verwijderen'])->name('verwijderen');
 });
