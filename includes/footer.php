@@ -652,14 +652,21 @@ $treinPad  = ($rootPath ?? './') . 'assets/trein/';
         background: #4d3324;
     }
 
+    @keyframes windmolen-draaien {
+        from { transform: rotate(0deg); }
+        to   { transform: rotate(360deg); }
+    }
+
     .windmolen .wieken {
         position: absolute;
-        top: 5px;
-        left: 25px;
+        top: 17px;
+        left: 24px;
         width: 4px;
         height: 4px;
         background: #4f473e;
         border-radius: 50%;
+        animation: windmolen-draaien 4s linear infinite;
+        transform-origin: 2px 2px;
     }
 
     .windmolen .wiek {
