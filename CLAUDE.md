@@ -2,7 +2,7 @@
 
 ## Commits
 
-Schrijf commit-berichten altijd in het **Nederlands**. Voeg **geen** `Co-Authored-By` regel toe aan commits. Commit of push **nooit** zonder expliciete opdracht.
+Schrijf commit-berichten altijd in het **Nederlands**. Voeg **geen** `Co-Authored-By` regel toe aan commits. Commit of push **nooit** zonder expliciete opdracht. Voeg altijd een **beschrijving** toe (commit body) waarin staat wat er is gewijzigd en waarom.
 
 ## Migraties
 
