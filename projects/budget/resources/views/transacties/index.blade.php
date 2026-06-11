@@ -2,10 +2,20 @@
 
     <div class="flex items-center justify-between mb-6">
         <h1 class="text-2xl font-semibold text-gray-800">Transacties</h1>
-        <a href="{{ route('transacties.importeren') }}" class="btn-primary">
-            + Importeren
-        </a>
+        <a href="{{ route('transacties.importeren') }}" class="btn-primary">+ Importeren</a>
     </div>
+
+    <form method="GET" action="{{ route('transacties.index') }}" class="mb-4">
+        <div class="relative max-w-sm">
+            <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-xs"></i>
+            <input type="text" name="zoek" value="{{ $zoek }}"
+                placeholder="Zoek in omschrijving..."
+                class="form-input pl-9 pr-8">
+            @if($zoek)
+                <a href="{{ route('transacties.index') }}" class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 text-xs">✕</a>
+            @endif
+        </div>
+    </form>
 
     @if($transacties->isEmpty())
         <div class="bg-white rounded-2xl p-10 text-center shadow-sm">

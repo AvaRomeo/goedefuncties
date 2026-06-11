@@ -14,22 +14,22 @@
     @else
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             @foreach($rekeningen as $rekening)
-                <div class="bg-white rounded-2xl p-6 shadow-sm flex flex-col gap-4">
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background-color: {{ $rekening->kleur }}1a; border: 2px solid {{ $rekening->kleur }}; color: {{ $rekening->kleur }}">
-                            <i class="{{ $rekening->icoon }}"></i>
+                <div class="bg-white rounded-2xl shadow-sm flex flex-col hover:shadow-md transition-shadow">
+                    <a href="{{ route('rekeningen.tonen', $rekening) }}" class="flex flex-col gap-4 p-6 flex-1">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background-color: {{ $rekening->kleur }}1a; border: 2px solid {{ $rekening->kleur }}; color: {{ $rekening->kleur }}">
+                                <i class="{{ $rekening->icoon }}"></i>
+                            </div>
+                            <div>
+                                <h2 class="font-semibold text-gray-800">{{ $rekening->naam }}</h2>
+                                <span class="text-xs text-gray-400 capitalize">{{ $rekening->type }}{{ $rekening->bank ? ' · ' . strtoupper($rekening->bank) : '' }}</span>
+                            </div>
                         </div>
-                        <div>
-                            <h2 class="font-semibold text-gray-800">{{ $rekening->naam }}</h2>
-                            <span class="text-xs text-gray-400 capitalize">{{ $rekening->type }}{{ $rekening->bank ? ' · ' . strtoupper($rekening->bank) : '' }}</span>
+                        <div class="text-2xl font-bold {{ $rekening->saldo >= 0 ? 'text-gray-800' : 'text-red-500' }}">
+                            € {{ number_format($rekening->saldo, 2, ',', '.') }}
                         </div>
-                    </div>
-
-                    <div class="text-2xl font-bold {{ $rekening->saldo >= 0 ? 'text-gray-800' : 'text-red-500' }}">
-                        € {{ number_format($rekening->saldo, 2, ',', '.') }}
-                    </div>
-
-                    <div class="flex gap-2 text-sm pt-2 border-t border-gray-100">
+                    </a>
+                    <div class="flex gap-2 text-sm px-6 py-3 border-t border-gray-100">
                         <a href="{{ route('rekeningen.bewerken', $rekening) }}" class="text-indigo-600 hover:underline">Bewerken</a>
                         <form action="{{ route('rekeningen.verwijderen', $rekening) }}" method="POST" onsubmit="return confirm('Rekening verwijderen?')">
                             @csrf

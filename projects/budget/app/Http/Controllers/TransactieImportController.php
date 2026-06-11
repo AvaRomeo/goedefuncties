@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Account;
+use App\Models\Category;
 use App\Models\Transaction;
 use App\Services\BunqCsvParser;
 use App\Services\RabobankCsvParser;
@@ -35,6 +36,8 @@ class TransactieImportController extends Controller
         $aangemaakt  = 0;
         $overgeslagen = 0;
 
+        $categorieen = Category::whereNotNull('trefwoorden')->get();
+
         foreach ($transacties as $data) {
             $omschrijving = $data['omschrijving'] !== '' ? $data['omschrijving'] : null;
 
@@ -56,7 +59,7 @@ class TransactieImportController extends Controller
 
             Transaction::create([
                 'account_id'   => $rekening->id,
-                'category_id'  => null,
+                'category_id'  => $this->zoekCategorie($categorieen, $omschrijving, $data['type']),
                 'type'         => $data['type'],
                 'bedrag'       => round($data['bedrag'], 2),
                 'datum'        => $data['datum'],
@@ -72,6 +75,25 @@ class TransactieImportController extends Controller
         }
 
         return redirect()->route('transacties.index')->with('succes', $bericht);
+    }
+
+    private function zoekCategorie($categorieen, ?string $omschrijving, string $type): ?int
+    {
+        if (blank($omschrijving)) return null;
+
+        $zoekIn = strtolower($omschrijving);
+
+        foreach ($categorieen as $categorie) {
+            if ($categorie->type !== $type) continue;
+
+            foreach ($categorie->trefwoorden as $trefwoord) {
+                if (str_contains($zoekIn, $trefwoord)) {
+                    return $categorie->id;
+                }
+            }
+        }
+
+        return null;
     }
 
     private function parserVoorBank(?string $bank): RabobankCsvParser|BunqCsvParser|null

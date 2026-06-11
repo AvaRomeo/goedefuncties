@@ -34,6 +34,17 @@ class RekeningController extends Controller
         return redirect()->route('rekeningen.index')->with('succes', 'Rekening aangemaakt.');
     }
 
+    public function tonen(Account $rekening)
+    {
+        $transacties = $rekening->transactions()
+            ->with('category')
+            ->orderByDesc('datum')
+            ->orderByDesc('id')
+            ->paginate(50);
+
+        return view('rekeningen.tonen', compact('rekening', 'transacties'));
+    }
+
     public function bewerken(Account $rekening)
     {
         return view('rekeningen.bewerken', compact('rekening'));
