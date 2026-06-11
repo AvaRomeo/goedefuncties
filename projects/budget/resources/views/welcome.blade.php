@@ -45,14 +45,6 @@
                 <p class="text-sm text-gray-500">Categorieën aanmaken en beheren</p>
             </a>
 
-            <a href="/overboekingen" class="bg-white rounded-2xl p-6 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all block">
-                <div class="w-12 h-12 rounded-xl bg-sky-100 text-sky-600 flex items-center justify-center text-xl mb-4">
-                    <i class="fa-solid fa-paper-plane"></i>
-                </div>
-                <h2 class="font-semibold text-gray-800 mb-1">Overboekingen</h2>
-                <p class="text-sm text-gray-500">Geld overmaken tussen rekeningen</p>
-            </a>
-
         </div>
     </div>
 

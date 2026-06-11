@@ -15,7 +15,6 @@
             <a href="{{ route('rekeningen.index') }}" class="text-gray-600 hover:text-indigo-600 transition-colors {{ request()->is('rekeningen*') ? 'text-indigo-600 font-medium' : '' }}">Rekeningen</a>
             <a href="{{ route('transacties.index') }}" class="text-gray-600 hover:text-indigo-600 transition-colors {{ request()->is('transacties*') ? 'text-indigo-600 font-medium' : '' }}">Transacties</a>
             <a href="{{ route('categorieen.index') }}" class="text-gray-600 hover:text-indigo-600 transition-colors {{ request()->is('categorieen*') ? 'text-indigo-600 font-medium' : '' }}">Categorieën</a>
-            <a href="{{ route('overboekingen.index') }}" class="text-gray-600 hover:text-indigo-600 transition-colors {{ request()->is('overboekingen*') ? 'text-indigo-600 font-medium' : '' }}">Overboekingen</a>
         </div>
     </nav>
 

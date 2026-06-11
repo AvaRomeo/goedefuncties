@@ -14,7 +14,6 @@ return Application::configure(basePath: dirname(__DIR__))
             Route::middleware('web')->group(base_path('routes/rekeningen.php'));
             Route::middleware('web')->group(base_path('routes/transacties.php'));
             Route::middleware('web')->group(base_path('routes/categorieen.php'));
-            Route::middleware('web')->group(base_path('routes/overboekingen.php'));
         },
     )
     ->withMiddleware(function (Middleware $middleware): void {
