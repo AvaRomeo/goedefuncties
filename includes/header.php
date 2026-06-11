@@ -60,6 +60,14 @@
             'beschrijving' => 'Vergelijk twee databasestructuren en bekijk de verschillen tussen tabellen en kolommen.',
             'tag'          => 'SQL / PHP',
         ],
+        [
+            'naam'         => 'Budget',
+            'href'         => 'projects/budget/public/index.php',
+            'slug'         => 'budget',
+            'emoji'        => '💰',
+            'beschrijving' => 'Beheer je inkomsten en uitgaven, importeer transacties en houd je budget bij.',
+            'tag'          => 'PHP / MySQL',
+        ],
     ];
 
     $huidigUri = $_SERVER['REQUEST_URI'] ?? '';
