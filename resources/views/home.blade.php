@@ -17,6 +17,14 @@
             </a>
 
             <a class="bg-paneel border border-rand rounded-xl p-7 no-underline flex flex-col gap-2.5 transition-all hover:-translate-y-1 hover:border-accent hover:shadow-lg"
+               href="{{ route('sql-data.index') }}">
+                <div class="text-[2rem]">📤</div>
+                <h2 class="text-[1.1rem] text-tekst font-semibold">SQL Data extractor</h2>
+                <p class="text-[.9rem] text-gedempt flex-1">Upload een SQL-dump, kies een tabel en exporteer of kopieer de INSERT-statements.</p>
+                <span class="self-start bg-accent/20 text-accent text-xs px-2.5 py-0.5 rounded-full font-medium">SQL / PHP</span>
+            </a>
+
+            <a class="bg-paneel border border-rand rounded-xl p-7 no-underline flex flex-col gap-2.5 transition-all hover:-translate-y-1 hover:border-accent hover:shadow-lg"
                href="{{ route('budget.home') }}">
                 <div class="text-[2rem]">💰</div>
                 <h2 class="text-[1.1rem] text-tekst font-semibold">Budget</h2>

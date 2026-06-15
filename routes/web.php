@@ -3,6 +3,7 @@
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\GpxViewerController;
 use App\Http\Controllers\SqlCompareController;
+use App\Http\Controllers\SqlDataController;
 use App\Http\Controllers\RekeningController;
 use App\Http\Controllers\TransactieController;
 use App\Http\Controllers\TransactieImportController;
@@ -18,6 +19,11 @@ Route::get('/gpx-viewer', [GpxViewerController::class, 'index'])->name('gpx-view
 // --- SQL Vergelijker ---
 Route::get('/sql-vergelijker',  [SqlCompareController::class, 'index'])->name('sql-vergelijker.index');
 Route::post('/sql-vergelijker', [SqlCompareController::class, 'vergelijk'])->name('sql-vergelijker.vergelijk');
+
+// --- SQL Data extractor ---
+Route::get('/sql-data',            [SqlDataController::class, 'index'])->name('sql-data.index');
+Route::post('/sql-data/upload',    [SqlDataController::class, 'uploaden'])->name('sql-data.uploaden');
+Route::get('/sql-data/genereren',  [SqlDataController::class, 'genereren'])->name('sql-data.genereren');
 
 // --- Budget ---
 Route::get('/budget', function () {
