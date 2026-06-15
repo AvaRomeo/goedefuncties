@@ -27,7 +27,7 @@
     </style>
     {{ $head ?? '' }}
 </head>
-<body style="padding-bottom: 96px">
+<body {{ request()->routeIs('home') ? 'style="padding-bottom: 96px"' : '' }}>
 
     <nav class="site-nav">
         <a href="{{ route('home') }}">
@@ -39,6 +39,7 @@
         @php
             $navProjecten = [
                 ['naam' => 'SQL Vergelijker', 'route' => 'sql-vergelijker.index', 'patroon' => 'sql-vergelijker*'],
+                ['naam' => 'SQL Data',         'route' => 'sql-data.index',        'patroon' => 'sql-data*'],
                 ['naam' => 'Budget',           'route' => 'budget.home',           'patroon' => 'budget*|rekeningen*|transacties*|categorieen*'],
                 ['naam' => 'GPX Viewer',       'route' => 'gpx-viewer.index',      'patroon' => 'gpx-viewer*'],
             ];
@@ -55,13 +56,14 @@
 
     {{ $slot }}
 
+    @if(request()->routeIs('home'))
     @php
         $treinDir = public_path('trein/');
         $treinBestanden = is_dir($treinDir)
             ? array_values(array_filter(scandir($treinDir), fn($f) => (bool) preg_match('/\.(png|jpg|gif|svg|webp)$/i', $f)))
             : [];
         $treinJson = json_encode($treinBestanden);
-        $treinPad  = asset('trein/');
+        $treinPad  = asset('trein') . '/';
     @endphp
 
     <style>
@@ -249,6 +251,7 @@
         setTimeout(rijdTrein, 1000 + Math.random() * 3000);
     })();
     </script>
+    @endif
 
 </body>
 </html>
