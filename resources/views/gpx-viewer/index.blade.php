@@ -3,21 +3,10 @@
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
         <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/leaflet-gpx@1.7.0/gpx.min.js"></script>
-        <style>
-            #kaart { height: calc(100vh - 120px); min-height: 400px; }
-            #dropzone {
-                border: 2px dashed var(--rand, #3a414d);
-                border-radius: 12px;
-                padding: 2rem;
-                text-align: center;
-                cursor: pointer;
-                transition: border-color .2s, background .2s;
-            }
-            #dropzone.over { border-color: #4cc38a; background: rgba(76,195,138,.06); }
-        </style>
+
     </x-slot:head>
 
-    <div class="max-w-[1100px] mx-auto px-5 py-8 flex flex-col gap-6">
+    <div class="max-w-275 mx-auto px-5 py-8 flex flex-col gap-6">
 
         <header>
             <h1 class="text-[1.8rem] text-tekst font-bold">GPX Viewer</h1>
@@ -30,7 +19,7 @@
             <input id="gpx-input" type="file" accept=".gpx" class="hidden">
         </div>
 
-        <div id="info" class="hidden grid grid-cols-2 sm:grid-cols-4 gap-4">
+        <div id="info" class="grid-cols-2 sm:grid-cols-4 gap-4" style="display:none">
             <div class="bg-paneel border border-rand rounded-xl p-4 text-center">
                 <div class="text-gedempt text-xs mb-1">Afstand</div>
                 <div id="stat-afstand" class="text-tekst font-bold text-lg">—</div>
@@ -80,7 +69,7 @@
 
     function tekenRoute(inhoud, naam) {
         kaartDiv.classList.remove('hidden');
-        infoDiv.classList.remove('hidden');
+        infoDiv.style.display = 'grid';
         if (!map) {
             map = L.map('kaart');
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {

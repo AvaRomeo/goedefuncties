@@ -1,0 +1,13 @@
+/* Stijlen voor GPX Viewer */
+
+#kaart { height: calc(100vh - 120px); min-height: 400px; }
+
+#dropzone {
+    border: 2px dashed var(--rand, #3a414d);
+    border-radius: 12px;
+    padding: 2rem;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color .2s, background .2s;
+}
+#dropzone.over { border-color: #4cc38a; background: rgba(76,195,138,.06); }
