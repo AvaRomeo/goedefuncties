@@ -33,6 +33,7 @@
                 ['naam' => 'SQL Data',         'route' => 'sql-data.index',        'patroon' => 'sql-data*'],
                 ['naam' => 'Budget',           'route' => 'budget.home',           'patroon' => 'budget*|rekeningen*|transacties*|categorieen*'],
                 ['naam' => 'GPX Viewer',       'route' => 'gpx-viewer.index',      'patroon' => 'gpx-viewer*'],
+                ['naam' => 'Scouting',         'route' => 'scouting.home',         'patroon' => 'scouting*'],
             ];
         @endphp
         @foreach($navProjecten as $project)
