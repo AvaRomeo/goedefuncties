@@ -22,29 +22,50 @@
 <body {{ request()->routeIs('home') ? 'style="padding-bottom: 96px"' : '' }}>
 
     <nav class="site-nav">
-        <a href="{{ route('home') }}">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <a href="{{ route('home') }}" class="nav-home">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                 <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
             </svg>
-            Home
+            Kleine Projecten
         </a>
+
+        <div style="width:1px;height:20px;background:#2d3540;margin:0 6px;flex-shrink:0"></div>
+
         @php
             $navProjecten = [
-                ['naam' => 'SQL Vergelijker', 'route' => 'sql-vergelijker.index', 'patroon' => 'sql-vergelijker*'],
-                ['naam' => 'SQL Data',         'route' => 'sql-data.index',        'patroon' => 'sql-data*'],
-                ['naam' => 'Budget',           'route' => 'budget.home',           'patroon' => 'budget*|rekeningen*|transacties*|categorieen*'],
-                ['naam' => 'GPX Viewer',       'route' => 'gpx-viewer.index',      'patroon' => 'gpx-viewer*'],
-                ['naam' => 'Scouting',         'route' => 'scouting.home',         'patroon' => 'scouting*'],
+                ['naam' => 'SQL Vergelijker', 'route' => 'sql-vergelijker.index', 'patroon' => 'sql-vergelijker*', 'auth' => false],
+                ['naam' => 'SQL Data',         'route' => 'sql-data.index',        'patroon' => 'sql-data*',        'auth' => false],
+                ['naam' => 'Budget',           'route' => 'budget.home',           'patroon' => 'budget*|rekeningen*|transacties*|categorieen*', 'auth' => true],
+                ['naam' => 'GPX Viewer',       'route' => 'gpx-viewer.index',      'patroon' => 'gpx-viewer*',      'auth' => false],
+                ['naam' => 'Scouting',         'route' => 'scouting.home',         'patroon' => 'scouting*',        'auth' => true],
             ];
         @endphp
         @foreach($navProjecten as $project)
-            <span class="sep">·</span>
+            @if($project['auth'] && !auth()->check())
+                @continue
+            @endif
             @if(request()->is(explode('|', $project['patroon'])))
                 <span class="nav-actief">{{ $project['naam'] }}</span>
             @else
                 <a href="{{ route($project['route']) }}">{{ $project['naam'] }}</a>
             @endif
         @endforeach
+
+        <div style="flex:1"></div>
+
+        @auth
+            <span style="font-size:.8rem;color:#5a6472;padding:0 4px">{{ auth()->user()->name }}</span>
+            <form method="POST" action="{{ route('uitloggen') }}" style="display:inline">
+                @csrf
+                <button type="submit" style="background:none;border:none;cursor:pointer;color:#8a94a2;font-size:.8rem;padding:5px 10px;border-radius:7px;transition:color .15s,background .15s" onmouseover="this.style.color='#e6e9ee';this.style.background='rgba(255,255,255,.07)'" onmouseout="this.style.color='#8a94a2';this.style.background='none'">
+                    Uitloggen
+                </button>
+            </form>
+        @else
+            <a href="{{ route('login') }}" style="font-size:.8rem;padding:5px 12px;border-radius:7px;border:1px solid #2d3540;color:#8a94a2;text-decoration:none;transition:color .15s,border-color .15s" onmouseover="this.style.color='#e6e9ee';this.style.borderColor='#4cc38a'" onmouseout="this.style.color='#8a94a2';this.style.borderColor='#2d3540'">
+                Inloggen
+            </a>
+        @endauth
     </nav>
 
     {{ $slot }}

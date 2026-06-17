@@ -2,15 +2,18 @@
 
 namespace App\Models\Scouting;
 
+use App\Traits\HoortBijGebruiker;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Kamp extends Model
 {
+    use HoortBijGebruiker;
+
     protected $table = 'scouting_kampen';
 
     protected $fillable = [
-        'naam', 'start_datum', 'eind_datum', 'locatie', 'beschrijving',
+        'user_id', 'naam', 'start_datum', 'eind_datum', 'locatie', 'beschrijving',
     ];
 
     protected $casts = [
