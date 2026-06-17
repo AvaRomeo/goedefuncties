@@ -1,1 +1,283 @@
-/* Scouting module styles */
+/* ── Scouting theme ─────────────────────────────────────────── */
+
+body {
+    background: #181f16;
+}
+
+/* Hero banner */
+.sc-banner {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(160deg, #1f2e1a 0%, #17261a 50%, #151e1f 100%);
+    border-bottom: 1px solid #2e3d28;
+    padding: 48px 24px 0;
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.sc-banner-titel {
+    font-size: 2rem;
+    font-weight: 800;
+    letter-spacing: -.03em;
+    color: #e8ede4;
+    position: relative;
+    z-index: 2;
+}
+
+.sc-banner-sub {
+    color: #7a9e72;
+    font-size: .92rem;
+    margin-top: 4px;
+    position: relative;
+    z-index: 2;
+}
+
+/* Fleur-de-lis badge */
+.sc-fleur {
+    width: 52px;
+    height: 52px;
+    margin: 0 auto 12px;
+    position: relative;
+    z-index: 2;
+    opacity: .9;
+}
+
+/* Tree silhouette row */
+.sc-bos {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 0;
+    margin-top: 20px;
+    position: relative;
+    z-index: 1;
+    height: 72px;
+}
+
+.sc-boom {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.sc-boom .kroon {
+    background: #2a4226;
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+}
+
+.sc-boom .kroon-2 {
+    background: #233820;
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    margin-top: -8px;
+}
+
+.sc-boom .stam {
+    background: #3d2b1f;
+    width: 5px;
+}
+
+/* Tent silhouette in banner */
+.sc-tent-wrap {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+    opacity: .18;
+}
+
+/* Star dots (campfire sparks) */
+.sc-banner::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+        radial-gradient(circle, #5a8f4a 1px, transparent 1px),
+        radial-gradient(circle, #4a7a3c 1px, transparent 1px);
+    background-size: 40px 40px, 73px 73px;
+    background-position: 0 0, 20px 20px;
+    opacity: .08;
+    z-index: 0;
+}
+
+/* ── Stat cards ─────────────────────────────────────────────── */
+.sc-stat {
+    background: #1f2d1a;
+    border: 1px solid #2e3d28;
+    border-radius: 14px;
+    padding: 20px;
+    text-align: center;
+}
+
+.sc-stat-getal {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #6bc265;
+    line-height: 1;
+}
+
+.sc-stat-label {
+    font-size: .8rem;
+    color: #6d8a67;
+    margin-top: 5px;
+}
+
+.sc-stat.neutraal .sc-stat-getal { color: #a8b8a3; }
+
+/* ── Nav kaarten ────────────────────────────────────────────── */
+.sc-kaart {
+    background: #1f2d1a;
+    border: 1px solid #2e3d28;
+    border-radius: 16px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    text-decoration: none;
+    transition: border-color .15s, transform .15s;
+}
+
+.sc-kaart:hover {
+    border-color: #5a9e52;
+    transform: translateY(-2px);
+}
+
+.sc-kaart-icoon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: #2b3e24;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 4px;
+}
+
+.sc-kaart-icoon svg {
+    width: 22px;
+    height: 22px;
+    color: #6bc265;
+    stroke: currentColor;
+}
+
+.sc-kaart-naam {
+    font-weight: 700;
+    color: #e8ede4;
+    font-size: .95rem;
+}
+
+.sc-kaart-omsch {
+    font-size: .82rem;
+    color: #6d8a67;
+    line-height: 1.45;
+}
+
+/* ── Komende kampen ─────────────────────────────────────────── */
+.sc-kamp-rij {
+    background: #1f2d1a;
+    border: 1px solid #2e3d28;
+    border-radius: 14px;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-decoration: none;
+    transition: border-color .15s;
+}
+
+.sc-kamp-rij:hover {
+    border-color: #5a9e52;
+}
+
+.sc-kamp-naam {
+    font-weight: 600;
+    color: #e8ede4;
+}
+
+.sc-kamp-info {
+    font-size: .82rem;
+    color: #6d8a67;
+    margin-top: 2px;
+}
+
+/* ── Terug-link ─────────────────────────────────────────────── */
+.sc-terug {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: #6d8a67;
+    font-size: .85rem;
+    text-decoration: none;
+    margin-bottom: 24px;
+    transition: color .15s;
+}
+
+.sc-terug:hover { color: #6bc265; }
+
+/* ── Subpagina header ───────────────────────────────────────── */
+.sc-page-header {
+    background: linear-gradient(135deg, #1f2d1a 0%, #1a2518 100%);
+    border: 1px solid #2e3d28;
+    border-radius: 16px;
+    padding: 24px 28px;
+    margin-bottom: 28px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.sc-page-header-icoon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: #2b3e24;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 1.5rem;
+    line-height: 1;
+}
+
+.sc-page-header h1 {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: #e8ede4;
+    letter-spacing: -.02em;
+}
+
+.sc-page-header p {
+    font-size: .85rem;
+    color: #6d8a67;
+    margin-top: 2px;
+}
+
+/* ── Override Tailwind hardcoded donkere kleuren ────────────── */
+
+/* Panelen en kaarten — inclusief odd:/even: varianten */
+.bg-paneel,
+.odd\:bg-paneel:nth-child(odd)          { background-color: #1f2d1a !important; }
+.bg-rand                                { background-color: #2e3d28 !important; }
+
+/* Tabelkoppen en alternatieve rijen — inclusief even: variant */
+.bg-\[\#1a1f28\]                        { background-color: #1b2918 !important; }
+.bg-\[\#1e242d\],
+.even\:bg-\[\#1e242d\]:nth-child(even)  { background-color: #1d2a1a !important; }
+
+/* Formulierinvoer */
+.bg-\[\#161b23\]                        { background-color: #192316 !important; }
+
+/* Randen */
+.border-rand                            { border-color: #2e3d28 !important; }
+.border-rand\/30                        { border-color: rgb(46 61 40 / .3) !important; }
+.border-rand\/40                        { border-color: rgb(46 61 40 / .4) !important; }
+.border-rand\/50                        { border-color: rgb(46 61 40 / .5) !important; }
+.border-rand\/60                        { border-color: rgb(46 61 40 / .6) !important; }
+
+/* Hover achtergrond op rijen */
+.hover\:bg-rand\/40:hover               { background-color: rgb(46 61 40 / .4) !important; }
+
+/* Navigatiebalk blijft neutraal */
+.site-nav                               { background: #262c36 !important; border-color: #3a414d !important; }

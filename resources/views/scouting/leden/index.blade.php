@@ -2,20 +2,21 @@
 
     <div class="max-w-2xl mx-auto px-4 pt-10 pb-16">
 
-        <a href="{{ route('scouting.home') }}" class="text-gedempt text-sm hover:text-accent transition-colors mb-6 inline-flex items-center gap-1.5">
+        <a href="{{ route('scouting.home') }}" class="sc-terug">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
             Terug naar Scouting
         </a>
 
-        <div class="flex items-start justify-between gap-4 mb-6">
+        <div class="sc-page-header mb-6">
+            <div class="sc-page-header-icoon">👥</div>
             <div>
-                <h1 class="text-[1.45rem] font-semibold tracking-tight text-tekst">Leden</h1>
-                <p id="aantal-tekst" class="text-gedempt text-sm mt-0.5">{{ $leden->count() }} {{ $leden->count() === 1 ? 'lid' : 'leden' }}</p>
+                <h1>Leden</h1>
+                <p id="aantal-tekst">{{ $leden->count() }} {{ $leden->count() === 1 ? 'lid' : 'leden' }}</p>
             </div>
-            <form id="lid-toevoegen-form" method="post" action="{{ route('scouting.leden.opslaan') }}" class="flex gap-2">
+            <form id="lid-toevoegen-form" method="post" action="{{ route('scouting.leden.opslaan') }}" class="flex gap-2 ml-auto">
                 @csrf
                 <input type="text" name="naam" placeholder="Naam nieuw lid…" required autofocus
-                       class="bg-paneel border border-rand rounded-lg px-3 py-2 text-tekst text-sm outline-none focus:border-accent transition-colors w-52">
+                       class="bg-paneel border border-rand rounded-lg px-3 py-2 text-tekst text-sm outline-none focus:border-accent transition-colors w-48">
                 <button type="submit"
                         class="bg-accent text-[#10241a] rounded-lg px-4 py-2 font-semibold text-sm hover:opacity-90 transition-opacity cursor-pointer whitespace-nowrap">
                     + Toevoegen
@@ -72,7 +73,7 @@
         const aantalEl  = document.getElementById('aantal-tekst');
         const csrfToken = form.querySelector('input[name="_token"]').value;
 
-        const bewerkUrl   = '{{ route("scouting.leden.bewerken",   "__ID__") }}';
+        const bewerkUrl    = '{{ route("scouting.leden.bewerken",   "__ID__") }}';
         const verwijderUrl = '{{ route("scouting.leden.verwijderen", "__ID__") }}';
 
         function updateAantal() {
@@ -100,22 +101,17 @@
 
         form.addEventListener('submit', async function (e) {
             e.preventDefault();
-
             const res = await fetch(form.action, {
                 method: 'POST',
                 headers: { 'Accept': 'application/json', 'X-Requested-With': 'XMLHttpRequest' },
                 body: new FormData(form),
             });
-
             if (!res.ok) { form.submit(); return; }
-
             const lid = await res.json();
-
             leeg.classList.add('hidden');
             tabel.classList.remove('hidden');
             tbody.appendChild(maakRij(lid));
             updateAantal();
-
             form.querySelector('input[name="naam"]').value = '';
             form.querySelector('input[name="naam"]').focus();
         });

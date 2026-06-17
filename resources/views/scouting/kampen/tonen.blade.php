@@ -2,7 +2,7 @@
 
     <div class="max-w-[900px] mx-auto px-4 pt-10 pb-16">
 
-        <a href="{{ route('scouting.kampen.index') }}" class="text-gedempt text-sm hover:text-accent transition-colors mb-6 inline-flex items-center gap-1.5">
+        <a href="{{ route('scouting.kampen.index') }}" class="sc-terug">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
             Terug naar kampen
         </a>
@@ -66,15 +66,20 @@
         {{-- Linkerkolom: leden --}}
         <div>
 
-        {{-- Lid toevoegen --}}
-        @if($beschikbareLeden->isNotEmpty())
-            <div class="mb-4">
+        {{-- Leden tabel header + knop --}}
+        <div class="flex items-center justify-between mb-3">
+            <h2 class="text-base font-semibold text-tekst">Leden</h2>
+            @if($beschikbareLeden->isNotEmpty())
                 <button id="toon-lid-form" type="button"
-                        class="bg-accent text-[#10241a] rounded-lg px-4 py-2 font-semibold text-sm hover:opacity-90 transition-opacity cursor-pointer">
+                        class="bg-accent text-[#10241a] rounded-lg px-3 py-1.5 font-semibold text-xs hover:opacity-90 transition-opacity cursor-pointer">
                     + Lid toevoegen
                 </button>
+            @endif
+        </div>
 
-                <div id="lid-form" class="hidden mt-4 bg-paneel border border-rand rounded-xl p-5">
+        @if($beschikbareLeden->isNotEmpty())
+            <div class="mb-4">
+                <div id="lid-form" class="hidden mb-4 bg-paneel border border-rand rounded-xl p-5">
                     <form method="post" action="{{ route('scouting.deelnames.opslaan', $kamp) }}" class="flex flex-wrap gap-3 items-end">
                         @csrf
                         <div class="flex-1 min-w-40">
@@ -114,8 +119,6 @@
 
         {{-- Leden tabel --}}
         <div>
-            <h2 class="text-base font-semibold text-tekst mb-3">Leden</h2>
-
             @if($kamp->deelnames->isEmpty())
                 <p class="text-gedempt text-sm">Nog geen leden.</p>
             @else

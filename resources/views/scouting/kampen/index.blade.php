@@ -2,18 +2,19 @@
 
     <div class="max-w-[900px] mx-auto px-4 pt-10 pb-16">
 
-        <a href="{{ route('scouting.home') }}" class="text-gedempt text-sm hover:text-accent transition-colors mb-6 inline-flex items-center gap-1.5">
+        <a href="{{ route('scouting.home') }}" class="sc-terug">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
             Terug naar Scouting
         </a>
 
-        <div class="flex items-center justify-between mb-6">
+        <div class="sc-page-header mb-6">
+            <div class="sc-page-header-icoon">⛺</div>
             <div>
-                <h1 class="text-[1.45rem] font-semibold tracking-tight text-tekst">Kampen</h1>
-                <p class="text-gedempt text-sm mt-0.5">{{ $kampen->count() }} {{ $kampen->count() === 1 ? 'kamp' : 'kampen' }}</p>
+                <h1>Kampen</h1>
+                <p>{{ $kampen->count() }} {{ $kampen->count() === 1 ? 'kamp' : 'kampen' }}</p>
             </div>
             <a href="{{ route('scouting.kampen.aanmaken') }}"
-               class="bg-accent text-[#10241a] rounded-lg px-4 py-2 font-semibold text-sm hover:opacity-90 transition-opacity">
+               class="bg-accent text-[#10241a] rounded-lg px-4 py-2 font-semibold text-sm hover:opacity-90 transition-opacity ml-auto">
                 + Kamp toevoegen
             </a>
         </div>
