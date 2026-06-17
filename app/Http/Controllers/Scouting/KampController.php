@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Scouting;
 use App\Http\Controllers\Controller;
 use App\Models\Scouting\Kamp;
 use App\Models\Scouting\Lid;
+use App\Models\Scouting\Leiding;
 use Illuminate\Http\Request;
 
 class KampController extends Controller
@@ -29,14 +30,17 @@ class KampController extends Controller
 
     public function tonen(Kamp $kamp)
     {
-        $kamp->load('deelnames.lid');
-        $lidIdsInKamp = $kamp->deelnames->pluck('lid_id');
-        $beschikbareLeden = Lid::where('actief', true)
-            ->whereNotIn('id', $lidIdsInKamp)
-            ->orderBy('naam')
-            ->get();
+        $kamp->load('deelnames.lid', 'kampleiding.leiding');
+        $kamp->setRelation('deelnames', $kamp->deelnames->sortBy('lid.naam')->values());
+        $kamp->setRelation('kampleiding', $kamp->kampleiding->sortBy('leiding.naam')->values());
 
-        return view('scouting.kampen.tonen', compact('kamp', 'beschikbareLeden'));
+        $beschikbareLeden = Lid::whereNotIn('id', $kamp->deelnames->pluck('lid_id'))
+            ->orderBy('naam')->get();
+
+        $beschikbareLeiding = Leiding::whereNotIn('id', $kamp->kampleiding->pluck('leiding_id'))
+            ->orderBy('naam')->get();
+
+        return view('scouting.kampen.tonen', compact('kamp', 'beschikbareLeden', 'beschikbareLeiding'));
     }
 
     public function bewerken(Kamp $kamp)
@@ -64,7 +68,6 @@ class KampController extends Controller
             'eind_datum'  => 'required|date|after_or_equal:start_datum',
             'locatie'     => 'nullable|string|max:255',
             'beschrijving'=> 'nullable|string',
-            'prijs'       => 'nullable|numeric|min:0',
         ]);
     }
 }

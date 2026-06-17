@@ -17,9 +17,12 @@ class KampdeelnameController extends Controller
             'bijzonderheden' => 'nullable|string',
         ]);
 
+        $bedrag = $data['bedrag'] ?? null;
+
         $kamp->deelnames()->create([
             'lid_id'         => $data['lid_id'],
-            'bedrag'         => $data['bedrag'] ?? $kamp->prijs,
+            'bedrag'         => $bedrag,
+            'betaald'        => $bedrag > 0,
             'bijzonderheden' => $data['bijzonderheden'] ?? null,
         ]);
 
@@ -35,12 +38,22 @@ class KampdeelnameController extends Controller
             'bijzonderheden' => 'nullable|string',
         ]);
 
+        $bedrag = $data['bedrag'] ?? $deelname->bedrag;
+
         $deelname->update([
             'bevestigd'      => $request->boolean('bevestigd'),
-            'betaald'        => $request->boolean('betaald'),
-            'bedrag'         => $data['bedrag'] ?? $deelname->bedrag,
+            'betaald'        => $bedrag > 0 ? true : $request->boolean('betaald'),
+            'bedrag'         => $bedrag,
             'bijzonderheden' => $data['bijzonderheden'] ?? $deelname->bijzonderheden,
         ]);
+
+        if ($request->wantsJson()) {
+            return response()->json([
+                'bedrag'        => $deelname->bedrag,
+                'betaald'       => $deelname->betaald,
+                'bijzonderheden'=> $deelname->bijzonderheden,
+            ]);
+        }
 
         return redirect()->route('scouting.kampen.tonen', $deelname->kamp_id)->with('succes', 'Bijgewerkt.');
     }

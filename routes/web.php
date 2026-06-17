@@ -12,6 +12,8 @@ use App\Http\Controllers\Scouting\ScoutingController;
 use App\Http\Controllers\Scouting\LidController;
 use App\Http\Controllers\Scouting\KampController;
 use App\Http\Controllers\Scouting\KampdeelnameController;
+use App\Http\Controllers\Scouting\KampleidingController;
+use App\Http\Controllers\Scouting\LeidingController;
 use Illuminate\Support\Facades\Route;
 
 // --- Portaal ---
@@ -74,6 +76,15 @@ Route::prefix('scouting')->name('scouting.')->group(function () {
         Route::delete('/{lid}',      [LidController::class, 'verwijderen'])->name('verwijderen');
     });
 
+    Route::prefix('leiding')->name('leiding.')->group(function () {
+        Route::get('/',               [LeidingController::class, 'index'])->name('index');
+        Route::get('/aanmaken',       [LeidingController::class, 'aanmaken'])->name('aanmaken');
+        Route::post('/',              [LeidingController::class, 'opslaan'])->name('opslaan');
+        Route::get('/{persoon}/bewerken', [LeidingController::class, 'bewerken'])->name('bewerken');
+        Route::put('/{persoon}',      [LeidingController::class, 'bijwerken'])->name('bijwerken');
+        Route::delete('/{persoon}',   [LeidingController::class, 'verwijderen'])->name('verwijderen');
+    });
+
     Route::prefix('kampen')->name('kampen.')->group(function () {
         Route::get('/',               [KampController::class, 'index'])->name('index');
         Route::get('/aanmaken',       [KampController::class, 'aanmaken'])->name('aanmaken');
@@ -87,6 +98,13 @@ Route::prefix('scouting')->name('scouting.')->group(function () {
     Route::prefix('kampen/{kamp}/deelnames')->name('deelnames.')->group(function () {
         Route::post('/',                  [KampdeelnameController::class, 'opslaan'])->name('opslaan');
     });
+    Route::prefix('kampen/{kamp}/kampleiding')->name('kampleiding.')->group(function () {
+        Route::post('/', [KampleidingController::class, 'opslaan'])->name('opslaan');
+    });
+    Route::prefix('kampleiding')->name('kampleiding.')->group(function () {
+        Route::delete('/{kampleiding}', [KampleidingController::class, 'verwijderen'])->name('verwijderen');
+    });
+
     Route::prefix('deelnames')->name('deelnames.')->group(function () {
         Route::put('/{deelname}',    [KampdeelnameController::class, 'bijwerken'])->name('bijwerken');
         Route::delete('/{deelname}', [KampdeelnameController::class, 'verwijderen'])->name('verwijderen');

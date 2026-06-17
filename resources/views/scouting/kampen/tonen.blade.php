@@ -43,7 +43,7 @@
             <div class="grid grid-cols-4 gap-3 mb-8">
                 <div class="bg-paneel border border-rand rounded-xl p-4 text-center">
                     <div class="text-2xl font-bold text-tekst tabular-nums">{{ $totaal }}</div>
-                    <div class="text-gedempt text-xs mt-1">deelnemers</div>
+                    <div class="text-gedempt text-xs mt-1">leden</div>
                 </div>
                 <div class="bg-paneel border border-rand rounded-xl p-4 text-center">
                     <div class="text-2xl font-bold text-accent tabular-nums">{{ $betaald }}</div>
@@ -60,19 +60,70 @@
             </div>
         @endif
 
-        {{-- Deelnemers tabel --}}
-        <div class="mb-8">
-            <h2 class="text-base font-semibold text-tekst mb-3">Deelnemers</h2>
+        {{-- Leden & Leiding naast elkaar --}}
+        <div class="grid grid-cols-[1fr_260px] gap-6 mb-8">
+
+        {{-- Linkerkolom: leden --}}
+        <div>
+
+        {{-- Lid toevoegen --}}
+        @if($beschikbareLeden->isNotEmpty())
+            <div class="mb-4">
+                <button id="toon-lid-form" type="button"
+                        class="bg-accent text-[#10241a] rounded-lg px-4 py-2 font-semibold text-sm hover:opacity-90 transition-opacity cursor-pointer">
+                    + Lid toevoegen
+                </button>
+
+                <div id="lid-form" class="hidden mt-4 bg-paneel border border-rand rounded-xl p-5">
+                    <form method="post" action="{{ route('scouting.deelnames.opslaan', $kamp) }}" class="flex flex-wrap gap-3 items-end">
+                        @csrf
+                        <div class="flex-1 min-w-40">
+                            <label class="block text-xs text-gedempt mb-1">Lid *</label>
+                            <select name="lid_id" required
+                                    class="w-full bg-[#161b23] border border-rand rounded-lg px-3 py-2 text-tekst text-sm outline-none focus:border-accent transition-colors">
+                                <option value="">Kies een lid…</option>
+                                @foreach($beschikbareLeden as $lid)
+                                    <option value="{{ $lid->id }}">{{ $lid->naam }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="w-28">
+                            <label class="block text-xs text-gedempt mb-1">Bedrag (€)</label>
+                            <input type="number" name="bedrag" step="0.01" min="0"
+                                   class="w-full bg-[#161b23] border border-rand rounded-lg px-3 py-2 text-tekst text-sm outline-none focus:border-accent transition-colors">
+                        </div>
+                        <div class="flex-1 min-w-40">
+                            <label class="block text-xs text-gedempt mb-1">Bijzonderheden</label>
+                            <input type="text" name="bijzonderheden" placeholder="bijv. glutenvrij, medicatie…"
+                                   class="w-full bg-[#161b23] border border-rand rounded-lg px-3 py-2 text-tekst text-sm outline-none focus:border-accent transition-colors">
+                        </div>
+                        <div class="flex gap-2">
+                            <button type="submit"
+                                    class="bg-accent text-[#10241a] rounded-lg px-4 py-2 font-semibold text-sm hover:opacity-90 transition-opacity cursor-pointer whitespace-nowrap">
+                                Toevoegen
+                            </button>
+                            <button type="button" id="verberg-lid-form"
+                                    class="border border-rand text-gedempt rounded-lg px-4 py-2 text-sm hover:border-accent hover:text-accent transition-colors cursor-pointer">
+                                Annuleren
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        @endif
+
+        {{-- Leden tabel --}}
+        <div>
+            <h2 class="text-base font-semibold text-tekst mb-3">Leden</h2>
 
             @if($kamp->deelnames->isEmpty())
-                <p class="text-gedempt text-sm">Nog geen deelnemers.</p>
+                <p class="text-gedempt text-sm">Nog geen leden.</p>
             @else
                 <div class="rounded-xl border border-rand overflow-hidden mb-4">
                     <table class="w-full border-collapse text-sm">
                         <thead>
                             <tr class="bg-[#1a1f28]">
                                 <th class="text-left px-4 py-2.5 text-gedempt font-semibold text-xs uppercase tracking-wide">Naam</th>
-                                <th class="text-left px-4 py-2.5 text-gedempt font-semibold text-xs uppercase tracking-wide">Speltak</th>
                                 <th class="text-left px-4 py-2.5 text-gedempt font-semibold text-xs uppercase tracking-wide">Bedrag</th>
                                 <th class="text-left px-4 py-2.5 text-gedempt font-semibold text-xs uppercase tracking-wide">Betaald</th>
                                 <th class="text-left px-4 py-2.5 text-gedempt font-semibold text-xs uppercase tracking-wide">Bijzonderheden</th>
@@ -80,32 +131,126 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($kamp->deelnames as $i => $deelname)
-                                <tr class="{{ $i % 2 === 0 ? 'bg-paneel' : 'bg-[#1e242d]' }} hover:bg-rand/40 transition-colors">
-                                    <td class="px-4 py-2.5 border-b border-rand/50 text-tekst font-medium">{{ $deelname->lid->naam }}</td>
-                                    <td class="px-4 py-2.5 border-b border-rand/50 text-gedempt text-xs">{{ $deelname->lid->speltak }}</td>
-                                    <td class="px-4 py-2.5 border-b border-rand/50 text-tekst tabular-nums">
+                            @foreach($kamp->deelnames as $deelname)
+                                <tr class="odd:bg-paneel even:bg-[#1e242d] hover:bg-rand/40 transition-colors">
+                                    {{-- Weergavemodus --}}
+                                    <td class="view-cel px-4 py-2.5 border-b border-rand/50 text-tekst font-medium">{{ $deelname->lid->naam }}</td>
+                                    <td class="view-cel px-4 py-2.5 border-b border-rand/50 text-tekst tabular-nums">
                                         {{ $deelname->bedrag !== null ? '€ ' . number_format($deelname->bedrag, 2, ',', '.') : '—' }}
                                     </td>
-                                    <td class="px-4 py-2.5 border-b border-rand/50">
-                                        <form method="post" action="{{ route('scouting.deelnames.bijwerken', $deelname) }}">
-                                            @csrf @method('PUT')
-                                            <input type="hidden" name="bevestigd" value="{{ $deelname->bevestigd ? 1 : 0 }}">
-                                            <input type="hidden" name="bedrag" value="{{ $deelname->bedrag }}">
-                                            <input type="hidden" name="bijzonderheden" value="{{ $deelname->bijzonderheden }}">
-                                            <button type="submit" name="betaald" value="{{ $deelname->betaald ? 0 : 1 }}"
-                                                    class="text-xs px-2.5 py-1 rounded-full cursor-pointer transition-colors
-                                                        {{ $deelname->betaald ? 'bg-accent/15 text-accent hover:bg-fout/15 hover:text-fout' : 'bg-rand text-gedempt hover:bg-accent/15 hover:text-accent' }}">
-                                                {{ $deelname->betaald ? 'Betaald' : 'Niet betaald' }}
-                                            </button>
-                                        </form>
+                                    <td class="view-cel px-4 py-2.5 border-b border-rand/50">
+                                        <span class="text-xs px-2.5 py-1 rounded-full {{ $deelname->betaald ? 'bg-accent/15 text-accent' : 'bg-rand text-gedempt' }}">
+                                            {{ $deelname->betaald ? 'Betaald' : 'Niet betaald' }}
+                                        </span>
                                     </td>
-                                    <td class="px-4 py-2.5 border-b border-rand/50 text-gedempt text-xs max-w-[200px] truncate">
+                                    <td class="view-cel px-4 py-2.5 border-b border-rand/50 text-gedempt text-xs">
                                         {{ $deelname->bijzonderheden ?: '—' }}
                                     </td>
+                                    <td class="view-cel px-4 py-2.5 border-b border-rand/50">
+                                        <div class="flex items-center gap-2 justify-end">
+                                            <button type="button" onclick="bewerkRij(this)"
+                                                    class="text-gedempt hover:text-accent transition-colors text-xs cursor-pointer">Bewerken</button>
+                                            <form method="post" action="{{ route('scouting.deelnames.verwijderen', $deelname) }}"
+                                                  onsubmit="return confirm('Lid verwijderen uit dit kamp?')">
+                                                @csrf @method('DELETE')
+                                                <button class="text-gedempt hover:text-fout transition-colors text-xs cursor-pointer">Verwijderen</button>
+                                            </form>
+                                        </div>
+                                    </td>
+
+                                    {{-- Bewerkingsmodus --}}
+                                    <td class="edit-cel hidden px-4 py-2.5 border-b border-rand/50 text-tekst font-medium">{{ $deelname->lid->naam }}</td>
+                                    <form method="post" action="{{ route('scouting.deelnames.bijwerken', $deelname) }}" style="display:contents">
+                                        @csrf @method('PUT')
+                                        <td class="edit-cel hidden px-4 py-2.5 border-b border-rand/50">
+                                            <input type="number" name="bedrag" step="0.01" min="0"
+                                                   value="{{ $deelname->bedrag }}"
+                                                   class="w-24 bg-paneel border border-rand rounded px-2 py-1 text-tekst text-sm tabular-nums outline-none focus:border-accent transition-colors">
+                                        </td>
+                                        <td class="edit-cel hidden px-4 py-2.5 border-b border-rand/50">
+                                            <label class="flex items-center gap-2 cursor-pointer">
+                                                <input type="hidden" name="betaald" value="0">
+                                                <input type="checkbox" name="betaald" value="1" {{ $deelname->betaald ? 'checked' : '' }}
+                                                       class="w-4 h-4 accent-[#4cc38a]">
+                                                <span class="text-xs text-tekst">Betaald</span>
+                                            </label>
+                                        </td>
+                                        <td class="edit-cel hidden px-4 py-2.5 border-b border-rand/50">
+                                            <input type="text" name="bijzonderheden"
+                                                   value="{{ $deelname->bijzonderheden }}"
+                                                   placeholder="bijv. glutenvrij…"
+                                                   class="w-full bg-paneel border border-rand rounded px-2 py-1 text-tekst text-xs outline-none focus:border-accent transition-colors">
+                                        </td>
+                                        <td class="edit-cel hidden px-4 py-2.5 border-b border-rand/50">
+                                            <div class="flex items-center gap-2 justify-end">
+                                                <button type="submit" class="text-accent hover:opacity-75 transition-opacity text-xs cursor-pointer font-medium">Opslaan</button>
+                                                <button type="button" onclick="annuleerRij(this)"
+                                                        class="text-gedempt hover:text-tekst transition-colors text-xs cursor-pointer">Annuleren</button>
+                                            </div>
+                                        </td>
+                                    </form>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            @endif
+        </div>
+        </div>{{-- einde linkerkolom --}}
+
+        {{-- Rechterkolom: leiding --}}
+        <div>
+            <div class="flex items-center justify-between mb-4">
+                <h2 class="text-base font-semibold text-tekst">Leiding</h2>
+                @if($beschikbareLeiding->isNotEmpty())
+                    <button id="toon-leiding-form" type="button"
+                            class="bg-accent text-[#10241a] rounded-lg px-3 py-1.5 font-semibold text-xs hover:opacity-90 transition-opacity cursor-pointer">
+                        + Toevoegen
+                    </button>
+                @endif
+            </div>
+
+            <div id="leiding-form" class="hidden mb-4 bg-paneel border border-rand rounded-xl p-4">
+                    <form method="post" action="{{ route('scouting.kampleiding.opslaan', $kamp) }}" class="flex flex-wrap gap-3 items-end">
+                        @csrf
+                        <div class="flex-1 min-w-40">
+                            <label class="block text-xs text-gedempt mb-1">Leiding *</label>
+                            <select name="leiding_id" required
+                                    class="w-full bg-[#161b23] border border-rand rounded-lg px-3 py-2 text-tekst text-sm outline-none focus:border-accent transition-colors">
+                                <option value="">Kies een leidinggevende…</option>
+                                @foreach($beschikbareLeiding as $persoon)
+                                    <option value="{{ $persoon->id }}">{{ $persoon->naam }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="flex gap-2">
+                            <button type="submit"
+                                    class="bg-accent text-[#10241a] rounded-lg px-4 py-2 font-semibold text-sm hover:opacity-90 transition-opacity cursor-pointer">
+                                Toevoegen
+                            </button>
+                            <button type="button" id="verberg-leiding-form"
+                                    class="border border-rand text-gedempt rounded-lg px-4 py-2 text-sm hover:border-accent hover:text-accent transition-colors cursor-pointer">
+                                Annuleren
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            @if($kamp->kampleiding->isNotEmpty())
+                <div class="rounded-xl border border-rand overflow-hidden">
+                    <table class="w-full border-collapse text-sm">
+                        <thead>
+                            <tr class="bg-[#1a1f28]">
+                                <th class="text-left px-4 py-2.5 text-gedempt font-semibold text-xs uppercase tracking-wide">Naam</th>
+                                <th class="px-4 py-2.5 w-20"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($kamp->kampleiding as $kl)
+                                <tr class="odd:bg-paneel even:bg-[#1e242d] hover:bg-rand/40 transition-colors">
+                                    <td class="px-4 py-2.5 border-b border-rand/50 text-tekst font-medium">{{ $kl->leiding->naam }}</td>
                                     <td class="px-4 py-2.5 border-b border-rand/50">
-                                        <form method="post" action="{{ route('scouting.deelnames.verwijderen', $deelname) }}"
-                                              onsubmit="return confirm('Deelnemer verwijderen uit dit kamp?')">
+                                        <form method="post" action="{{ route('scouting.kampleiding.verwijderen', $kl) }}"
+                                              onsubmit="return confirm('Leiding verwijderen uit dit kamp?')" class="flex justify-end">
                                             @csrf @method('DELETE')
                                             <button class="text-gedempt hover:text-fout transition-colors text-xs cursor-pointer">Verwijderen</button>
                                         </form>
@@ -115,46 +260,101 @@
                         </tbody>
                     </table>
                 </div>
+            @else
+                <p class="text-gedempt text-sm">Nog geen leiding toegevoegd.</p>
             @endif
         </div>
-
-        {{-- Deelnemer toevoegen --}}
-        @if($beschikbareLeden->isNotEmpty())
-            <div class="bg-paneel border border-rand rounded-xl p-5">
-                <h3 class="text-sm font-semibold text-tekst mb-4">Deelnemer toevoegen</h3>
-                <form method="post" action="{{ route('scouting.deelnames.opslaan', $kamp) }}" class="flex flex-wrap gap-3 items-end">
-                    @csrf
-                    <div class="flex-1 min-w-[160px]">
-                        <label class="block text-xs text-gedempt mb-1">Lid *</label>
-                        <select name="lid_id" required
-                                class="w-full bg-[#161b23] border border-rand rounded-lg px-3 py-2 text-tekst text-sm outline-none focus:border-accent transition-colors">
-                            <option value="">Kies een lid…</option>
-                            @foreach($beschikbareLeden as $lid)
-                                <option value="{{ $lid->id }}">{{ $lid->naam }} ({{ $lid->speltak }})</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="w-28">
-                        <label class="block text-xs text-gedempt mb-1">Bedrag (€)</label>
-                        <input type="number" name="bedrag" step="0.01" min="0"
-                               value="{{ $kamp->prijs }}"
-                               class="w-full bg-[#161b23] border border-rand rounded-lg px-3 py-2 text-tekst text-sm outline-none focus:border-accent transition-colors">
-                    </div>
-                    <div class="flex-1 min-w-[160px]">
-                        <label class="block text-xs text-gedempt mb-1">Bijzonderheden</label>
-                        <input type="text" name="bijzonderheden" placeholder="bijv. glutenvrij, medicatie…"
-                               class="w-full bg-[#161b23] border border-rand rounded-lg px-3 py-2 text-tekst text-sm outline-none focus:border-accent transition-colors">
-                    </div>
-                    <button type="submit"
-                            class="bg-accent text-[#10241a] rounded-lg px-4 py-2 font-semibold text-sm hover:opacity-90 transition-opacity cursor-pointer whitespace-nowrap">
-                        Toevoegen
-                    </button>
-                </form>
-            </div>
-        @elseif($kamp->deelnames->isNotEmpty())
-            <p class="text-gedempt text-sm">Alle actieve leden doen al mee aan dit kamp.</p>
-        @endif
+        </div>{{-- einde rechterkolom --}}
+        </div>{{-- einde grid --}}
 
     </div>
+
+    <script>
+    const toonKnop    = document.getElementById('toon-lid-form');
+    const verbergKnop = document.getElementById('verberg-lid-form');
+    const lidForm     = document.getElementById('lid-form');
+
+    if (toonKnop) {
+        toonKnop.addEventListener('click', () => {
+            lidForm.classList.remove('hidden');
+            toonKnop.classList.add('hidden');
+            lidForm.querySelector('select').focus();
+        });
+    }
+    if (verbergKnop) {
+        verbergKnop.addEventListener('click', () => {
+            lidForm.classList.add('hidden');
+            toonKnop.classList.remove('hidden');
+        });
+    }
+
+    const toonLeidingKnop    = document.getElementById('toon-leiding-form');
+    const verbergLeidingKnop = document.getElementById('verberg-leiding-form');
+    const leidingForm        = document.getElementById('leiding-form');
+
+    if (toonLeidingKnop) {
+        toonLeidingKnop.addEventListener('click', () => {
+            leidingForm.classList.remove('hidden');
+            toonLeidingKnop.classList.add('hidden');
+            leidingForm.querySelector('select').focus();
+        });
+    }
+    if (verbergLeidingKnop) {
+        verbergLeidingKnop.addEventListener('click', () => {
+            leidingForm.classList.add('hidden');
+            toonLeidingKnop.classList.remove('hidden');
+        });
+    }
+
+    function bewerkRij(knop) {
+        const rij = knop.closest('tr');
+        rij.querySelectorAll('.view-cel').forEach(cel => cel.classList.add('hidden'));
+        rij.querySelectorAll('.edit-cel').forEach(cel => cel.classList.remove('hidden'));
+    }
+
+    function annuleerRij(knop) {
+        const rij = knop.closest('tr');
+        rij.querySelectorAll('.edit-cel').forEach(cel => cel.classList.add('hidden'));
+        rij.querySelectorAll('.view-cel').forEach(cel => cel.classList.remove('hidden'));
+    }
+
+    document.querySelectorAll('.edit-cel form').forEach(function (form) {
+        form.addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            const res = await fetch(form.action, {
+                method: 'POST',
+                headers: { 'Accept': 'application/json', 'X-Requested-With': 'XMLHttpRequest' },
+                body: new FormData(form),
+            });
+
+            if (!res.ok) { form.submit(); return; }
+
+            const data = await res.json();
+            const rij = form.closest('tr');
+            const viewCellen = rij.querySelectorAll('.view-cel');
+
+            // Bedrag (index 1)
+            const bedragTekst = data.bedrag !== null
+                ? '€ ' + parseFloat(data.bedrag).toLocaleString('nl-NL', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+                : '—';
+            viewCellen[1].textContent = bedragTekst;
+
+            // Betaald (index 2)
+            const badge = viewCellen[2].querySelector('span');
+            badge.textContent = data.betaald ? 'Betaald' : 'Niet betaald';
+            badge.className = 'text-xs px-2.5 py-1 rounded-full ' + (data.betaald ? 'bg-accent/15 text-accent' : 'bg-rand text-gedempt');
+
+            // Bijzonderheden (index 3)
+            viewCellen[3].textContent = data.bijzonderheden || '—';
+
+            // Checkbox in edit-modus syncen met werkelijke waarde
+            const checkbox = rij.querySelector('.edit-cel input[type="checkbox"][name="betaald"]');
+            if (checkbox) checkbox.checked = data.betaald;
+
+            annuleerRij(rij.querySelector('.edit-cel button[type="button"]'));
+        });
+    });
+    </script>
 
 </x-layouts.portaal>

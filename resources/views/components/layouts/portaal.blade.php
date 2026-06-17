@@ -16,6 +16,7 @@
     @endif
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="{{ asset('tailwind.config.js') }}"></script>
+    @vite([])
     {{ $head ?? '' }}
 </head>
 <body {{ request()->routeIs('home') ? 'style="padding-bottom: 96px"' : '' }}>

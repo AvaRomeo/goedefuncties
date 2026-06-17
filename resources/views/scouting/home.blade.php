@@ -6,10 +6,14 @@
         <p class="text-gedempt mb-8">Overzicht van leden en kampen.</p>
 
         {{-- Statistieken --}}
-        <div class="grid grid-cols-3 gap-4 mb-10">
+        <div class="grid grid-cols-4 gap-4 mb-10">
             <div class="bg-paneel border border-rand rounded-xl p-5 text-center">
                 <div class="text-3xl font-bold text-accent tabular-nums">{{ $aantalLeden }}</div>
-                <div class="text-gedempt text-sm mt-1">actieve leden</div>
+                <div class="text-gedempt text-sm mt-1">leden</div>
+            </div>
+            <div class="bg-paneel border border-rand rounded-xl p-5 text-center">
+                <div class="text-3xl font-bold text-accent tabular-nums">{{ $aantalLeiding }}</div>
+                <div class="text-gedempt text-sm mt-1">leiding</div>
             </div>
             <div class="bg-paneel border border-rand rounded-xl p-5 text-center">
                 <div class="text-3xl font-bold text-tekst tabular-nums">{{ $aantalKampen }}</div>
@@ -22,12 +26,18 @@
         </div>
 
         {{-- Snelkoppelingen --}}
-        <div class="grid grid-cols-2 gap-4 mb-10">
+        <div class="grid grid-cols-3 gap-4 mb-10">
             <a href="{{ route('scouting.leden.index') }}"
                class="bg-paneel border border-rand rounded-xl p-6 hover:border-accent hover:-translate-y-0.5 transition-all flex flex-col gap-2">
                 <span class="text-2xl">👥</span>
                 <span class="font-semibold text-tekst">Leden</span>
                 <span class="text-gedempt text-sm">Bekijk en beheer alle leden</span>
+            </a>
+            <a href="{{ route('scouting.leiding.index') }}"
+               class="bg-paneel border border-rand rounded-xl p-6 hover:border-accent hover:-translate-y-0.5 transition-all flex flex-col gap-2">
+                <span class="text-2xl">🧭</span>
+                <span class="font-semibold text-tekst">Leiding</span>
+                <span class="text-gedempt text-sm">Bekijk en beheer alle leiding</span>
             </a>
             <a href="{{ route('scouting.kampen.index') }}"
                class="bg-paneel border border-rand rounded-xl p-6 hover:border-accent hover:-translate-y-0.5 transition-all flex flex-col gap-2">
