@@ -1,1 +1,175 @@
-/* Stijlen voor Budget (ook voor rekeningen, transacties en categorieën) */
+/* ── Budget — donker financieel thema ────────────────────────── */
+
+body { background: #181510; }
+
+body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: radial-gradient(circle, rgba(240,192,64,.04) 1px, transparent 1px);
+    background-size: 32px 32px;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* ── Banner ─────────────────────────────────────────────────── */
+.budget-banner {
+    background: linear-gradient(145deg, #2a2008 0%, #211a06 55%, #1a1504 100%);
+    border: 1px solid #3d2e0a;
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 32px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.budget-banner::before {
+    content: '';
+    position: absolute;
+    right: -30px;
+    top: -30px;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(240,192,64,.1) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.budget-banner-top {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    padding: 32px 28px 20px;
+    position: relative;
+    z-index: 1;
+}
+
+.budget-banner-icoon {
+    width: 64px;
+    height: 64px;
+    border-radius: 16px;
+    background: rgba(240,192,64,.12);
+    border: 1px solid rgba(240,192,64,.22);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: #f0c040;
+    font-size: 1.6rem;
+}
+
+/* ── Stadssilhouet ──────────────────────────────────────────── */
+.budget-skyline {
+    display: flex;
+    align-items: flex-end;
+    gap: 3px;
+    padding: 0 0 0 0;
+    height: 100px;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.budget-gebouw {
+    flex-shrink: 0;
+    background: #211a06;
+    border-top: 1px solid #3d2e0a;
+    border-left: 1px solid #3d2e0a;
+    border-right: 1px solid #3d2e0a;
+    position: relative;
+    /* Ramenpatroon als achtergrond */
+    background-image:
+        repeating-linear-gradient(
+            0deg,
+            transparent, transparent 9px,
+            rgba(240,192,64,.06) 9px, rgba(240,192,64,.06) 10px
+        ),
+        repeating-linear-gradient(
+            90deg,
+            transparent, transparent 7px,
+            rgba(240,192,64,.06) 7px, rgba(240,192,64,.06) 8px
+        );
+    background-color: #211a06;
+}
+
+/* Verlichte ramen (willekeurig via nth-child) */
+.budget-gebouw:nth-child(odd)  { background-color: #1e1804; }
+.budget-gebouw:nth-child(3n)   { border-top-color: #4a3510; }
+.budget-gebouw:nth-child(4n)   {
+    background-image:
+        repeating-linear-gradient(0deg, transparent, transparent 9px, rgba(240,192,64,.12) 9px, rgba(240,192,64,.12) 10px),
+        repeating-linear-gradient(90deg, transparent, transparent 7px, rgba(240,192,64,.12) 7px, rgba(240,192,64,.12) 8px);
+}
+
+/* ── Navigatiekaarten ───────────────────────────────────────── */
+.budget-kaart {
+    background: #1e1a0e;
+    border: 1px solid #352a0c;
+    border-radius: 16px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    text-decoration: none;
+    transition: border-color .15s, transform .15s, box-shadow .15s;
+}
+
+.budget-kaart:hover {
+    border-color: #6b5010;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0,0,0,.3);
+}
+
+.budget-kaart-icoon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    border: 1px solid transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 4px;
+}
+
+/* ── Tailwind-overrides ──────────────────────────────────────── */
+.bg-paneel                              { background-color: #1e1a0e !important; }
+.bg-\[\#1a1f28\]                        { background-color: #1a1508 !important; }
+.bg-\[\#1e242d\]                        { background-color: #1e1a0e !important; }
+.bg-\[\#161b23\]                        { background-color: #14110a !important; }
+.odd\:bg-paneel:nth-child(odd)          { background-color: #1e1a0e !important; }
+.even\:bg-\[\#1e242d\]:nth-child(even)  { background-color: #231e10 !important; }
+.border-rand                            { border-color: #352a0c !important; }
+.border-rand\/30                        { border-color: rgb(53 42 12 / .3) !important; }
+.border-rand\/40                        { border-color: rgb(53 42 12 / .4) !important; }
+.border-rand\/50                        { border-color: rgb(53 42 12 / .5) !important; }
+.border-rand\/60                        { border-color: rgb(53 42 12 / .6) !important; }
+.hover\:bg-rand\/40:hover               { background-color: rgb(53 42 12 / .4) !important; }
+.bg-rand                                { background-color: #352a0c !important; }
+.site-nav { background: #262c36 !important; border-color: #3a414d !important; }
+
+/* ── Form-component overrides ─────────────────────────────────── */
+.form-label                             { color: #c8bc98 !important; }
+.form-input                             { background-color: #1c1508 !important; border-color: #3a2e0e !important; color: #e8dfc0 !important; }
+.form-input:focus                       { border-color: #f0c040 !important; box-shadow: 0 0 0 3px rgba(240,192,64,.18) !important; outline: none !important; }
+.form-input-error                       { border-color: #dc2626 !important; }
+.form-error                             { color: #fca5a5 !important; }
+.btn-primary                            { background-color: #b8901a !important; color: #1a1408 !important; }
+.btn-primary:hover                      { background-color: #d4a820 !important; color: #1a1408 !important; }
+.btn-danger                             { color: #f87171 !important; }
+
+/* File-input knop */
+.budget-file-input::file-selector-button {
+    background: rgba(240,192,64,.15);
+    border: 1px solid rgba(240,192,64,.25);
+    color: #f0c040;
+    padding: 6px 14px;
+    border-radius: 10px;
+    font-size: .85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background .15s;
+}
+.budget-file-input::file-selector-button:hover {
+    background: rgba(240,192,64,.25);
+}

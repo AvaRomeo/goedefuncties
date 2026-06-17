@@ -70,7 +70,7 @@
         @foreach($kleuren as $kleur)
             <button type="button"
                 data-kleur="{{ $kleur }}"
-                class="kleur-knop w-8 h-8 rounded-full border-2 transition-all {{ $huidigKleur === $kleur ? 'border-gray-800 scale-110' : 'border-transparent' }}"
+                class="kleur-knop w-8 h-8 rounded-full border-2 transition-all {{ $huidigKleur === $kleur ? 'ring-2 ring-offset-1 ring-offset-[#1e1a0e] ring-white scale-110' : 'border-transparent' }}"
                 style="background-color: {{ $kleur }}">
             </button>
         @endforeach
@@ -84,7 +84,7 @@
         @foreach($iconen as $icoon)
             <button type="button"
                 data-icoon="{{ $icoon }}"
-                class="icoon-knop w-10 h-10 rounded-xl flex items-center justify-center border-2 transition-all {{ $huidigIcoon === $icoon ? 'border-indigo-500 bg-indigo-50 text-indigo-600' : 'border-transparent bg-gray-100 hover:bg-gray-200 text-gray-600' }}">
+                class="icoon-knop w-10 h-10 rounded-xl flex items-center justify-center border-2 transition-all {{ $huidigIcoon === $icoon ? 'border-accent bg-accent/10 text-accent' : 'border-rand/40 bg-rand/20 hover:bg-rand/40 text-gedempt' }}">
                 <i class="{{ $icoon }}"></i>
             </button>
         @endforeach

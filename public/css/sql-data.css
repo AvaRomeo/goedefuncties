@@ -1,1 +1,119 @@
-/* Stijlen voor SQL Data extractor */
+/* ── SQL Data — terminal / database thema ────────────────────── */
+
+body { background: #16120c; }
+
+body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: repeating-linear-gradient(
+        0deg, transparent, transparent 3px, rgba(245,158,11,.012) 4px
+    );
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* ── Banner ─────────────────────────────────────────────────── */
+.sql-banner {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(145deg, #221a0e 0%, #1a1208 60%, #16120c 100%);
+    border-bottom: 1px solid #382c18;
+    display: flex;
+    flex-direction: column;
+    z-index: 1;
+}
+
+.sql-banner-top {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    padding: 36px 28px 24px;
+    position: relative;
+    z-index: 1;
+}
+
+.sql-banner-icoon {
+    width: 64px;
+    height: 64px;
+    border-radius: 16px;
+    background: rgba(245,158,11,.1);
+    border: 1px solid rgba(245,158,11,.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+.sql-banner-icoon svg { width: 30px; height: 30px; color: #f59e0b; stroke: currentColor; }
+
+.sql-banner-titel { font-size: 1.75rem; font-weight: 800; color: #f0e4cc; letter-spacing: -.03em; line-height: 1; }
+.sql-banner-sub   { color: #7a6040; font-size: .9rem; margin-top: 6px; }
+
+/* ── Server-racks illustratie ───────────────────────────────── */
+.sql-racks {
+    display: flex;
+    align-items: flex-end;
+    gap: 6px;
+    padding: 0 28px;
+    height: 90px;
+    position: relative;
+    z-index: 1;
+}
+
+.sql-rack {
+    background: #1a1408;
+    border: 1px solid #3d2c10;
+    border-bottom: none;
+    border-radius: 3px 3px 0 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 5px 4px 0;
+    gap: 3px;
+    flex-shrink: 0;
+    width: 48px;
+}
+
+.sql-slot {
+    height: 5px;
+    background: rgba(245,158,11,.1);
+    border-radius: 1px;
+    position: relative;
+}
+
+.sql-slot.aan {
+    background: rgba(245,158,11,.4);
+    box-shadow: 0 0 4px rgba(245,158,11,.3);
+}
+
+.sql-slot::after {
+    content: '';
+    position: absolute;
+    right: 3px;
+    top: 1px;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: rgba(245,158,11,.2);
+}
+
+.sql-slot.aan::after {
+    background: rgba(245,158,11,.9);
+    box-shadow: 0 0 3px rgba(245,158,11,.6);
+}
+
+/* ── Tailwind-overrides ──────────────────────────────────────── */
+.bg-paneel                              { background-color: #1e1810 !important; }
+.bg-\[\#1a1f28\]                        { background-color: #1a1408 !important; }
+.bg-\[\#1e242d\]                        { background-color: #1e1810 !important; }
+.bg-\[\#161b23\]                        { background-color: #14100a !important; }
+.odd\:bg-paneel:nth-child(odd)          { background-color: #1e1810 !important; }
+.even\:bg-\[\#1e242d\]:nth-child(even)  { background-color: #231c10 !important; }
+.border-rand                            { border-color: #38280f !important; }
+.border-rand\/30                        { border-color: rgb(56 40 15 / .3) !important; }
+.border-rand\/40                        { border-color: rgb(56 40 15 / .4) !important; }
+.border-rand\/50                        { border-color: rgb(56 40 15 / .5) !important; }
+.border-rand\/60                        { border-color: rgb(56 40 15 / .6) !important; }
+.hover\:bg-rand\/40:hover               { background-color: rgb(56 40 15 / .4) !important; }
+.bg-rand                                { background-color: #38280f !important; }
+.site-nav { background: #262c36 !important; border-color: #3a414d !important; }

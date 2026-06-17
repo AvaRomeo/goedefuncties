@@ -1,11 +1,11 @@
 <x-layouts.app title="Transactie toevoegen">
 
     <div class="mb-6">
-        <a href="{{ $rekening_id ? route('rekeningen.tonen', $rekening_id) : route('transacties.index') }}" class="text-sm text-gray-400 hover:text-gray-600">← Terug</a>
-        <h1 class="text-2xl font-semibold text-gray-800 mt-1">Transactie toevoegen</h1>
+        <a href="{{ $rekening_id ? route('rekeningen.tonen', $rekening_id) : route('transacties.index') }}" class="text-sm text-gedempt hover:text-tekst">← Terug</a>
+        <h1 class="text-2xl font-semibold text-tekst mt-1">Transactie toevoegen</h1>
     </div>
 
-    <div class="bg-white rounded-2xl shadow-sm p-6 max-w-lg">
+    <div class="bg-paneel border border-rand rounded-2xl p-6 max-w-lg">
         <form action="{{ route('transacties.opslaan') }}" method="POST" class="flex flex-col gap-4">
             @csrf
             <input type="hidden" name="terug_rekening_id" value="{{ $rekening_id }}">
@@ -49,27 +49,27 @@
             </div>
 
             <div>
-                <label class="form-label" for="omschrijving">Omschrijving <span class="text-gray-400 font-normal">(optioneel)</span></label>
+                <label class="form-label" for="omschrijving">Omschrijving <span class="text-gedempt font-normal">(optioneel)</span></label>
                 <input type="text" name="omschrijving" id="omschrijving" class="form-input"
                     value="{{ old('omschrijving') }}" placeholder="Bijv. Boodschappen Lidl">
             </div>
 
             <div>
-                <label class="form-label" for="category_id">Categorie <span class="text-gray-400 font-normal">(optioneel)</span></label>
+                <label class="form-label" for="category_id">Categorie <span class="text-gedempt font-normal">(optioneel)</span></label>
                 <select name="category_id" id="category_id" class="form-input">
                     <option value="">— Geen categorie —</option>
                     @foreach($categorieen->where('type', 'uitgave') as $cat)
-                        @if($loop->first) <option disabled class="text-gray-400">── Uitgaven ──</option> @endif
+                        @if($loop->first) <option disabled class="text-gedempt">── Uitgaven ──</option> @endif
                         <option value="{{ $cat->id }}" {{ old('category_id') == $cat->id ? 'selected' : '' }}>{{ $cat->naam }}</option>
                     @endforeach
                     @foreach($categorieen->where('type', 'inkomst') as $cat)
-                        @if($loop->first) <option disabled class="text-gray-400">── Inkomsten ──</option> @endif
+                        @if($loop->first) <option disabled class="text-gedempt">── Inkomsten ──</option> @endif
                         <option value="{{ $cat->id }}" {{ old('category_id') == $cat->id ? 'selected' : '' }}>{{ $cat->naam }}</option>
                     @endforeach
                 </select>
             </div>
 
-            <div class="pt-2 border-t border-gray-100">
+            <div class="pt-2 border-t border-rand">
                 <button type="submit" class="btn-primary">Opslaan</button>
             </div>
         </form>

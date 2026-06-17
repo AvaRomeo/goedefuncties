@@ -1,9 +1,45 @@
 <x-layouts.portaal title="SQL Data extractor">
 
-    <div class="max-w-[900px] mx-auto px-4 pt-10 pb-16">
+    {{-- Banner --}}
+    <div class="sql-banner">
+        <div class="sql-banner-top">
+            <div class="sql-banner-icoon">
+                <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 30 30">
+                    <ellipse cx="15" cy="7" rx="10" ry="4"/>
+                    <path d="M5 7v6c0 2.21 4.48 4 10 4s10-1.79 10-4V7"/>
+                    <path d="M5 13v6c0 2.21 4.48 4 10 4s10-1.79 10-4v-6"/>
+                </svg>
+            </div>
+            <div class="sql-banner-tekst">
+                <div class="sql-banner-titel">SQL Data extractor</div>
+                <div class="sql-banner-sub">Upload een SQL-dump, kies een tabel en bekijk de inhoud.</div>
+            </div>
+        </div>
 
-        <h1 class="text-[1.45rem] font-semibold mb-1 tracking-tight text-tekst">SQL Data extractor</h1>
-        <p class="text-gedempt mb-6">Upload een SQL-dump, kies een tabel en bekijk de inhoud.</p>
+        {{-- Server-racks illustratie ------------------------------------ --}}
+        @php
+            $racks = [
+                ['h'=>80, 'slots'=>[[0,'aan'],[1,''],[2,''],[3,'aan'],[4,''],[5,'aan']]],
+                ['h'=>90, 'slots'=>[[0,''],[1,'aan'],[2,'aan'],[3,''],[4,'aan'],[5,''],[6,'aan']]],
+                ['h'=>60, 'slots'=>[[0,'aan'],[1,''],[2,'aan'],[3,'']]],
+                ['h'=>85, 'slots'=>[[0,''],[1,'aan'],[2,''],[3,'aan'],[4,''],[5,''],[6,'aan']]],
+                ['h'=>70, 'slots'=>[[0,'aan'],[1,'aan'],[2,''],[3,''],[4,'aan']]],
+                ['h'=>55, 'slots'=>[[0,''],[1,'aan'],[2,''],[3,'']]],
+                ['h'=>88, 'slots'=>[[0,'aan'],[1,''],[2,'aan'],[3,''],[4,''],[5,'aan'],[6,'']]],
+            ];
+        @endphp
+        <div class="sql-racks" aria-hidden="true">
+            @foreach($racks as $rack)
+                <div class="sql-rack" style="height:{{ $rack['h'] }}px">
+                    @foreach($rack['slots'] as [$idx, $aan])
+                        <div class="sql-slot {{ $aan }}"></div>
+                    @endforeach
+                </div>
+            @endforeach
+        </div>
+    </div>
+
+    <div class="max-w-[900px] mx-auto px-4 pb-16" style="position:relative;z-index:1">
 
         @if($errors->any())
             <div class="bg-fout/10 border border-fout rounded-lg px-4 py-3 mb-5 text-fout text-sm">

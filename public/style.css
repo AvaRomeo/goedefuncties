@@ -7,17 +7,78 @@ body {
 }
 
 .site-nav {
-    background: #262c36;
-    border-bottom: 1px solid #3a414d;
-    padding: 10px 24px;
+    background: #1a1f27;
+    border-bottom: 1px solid #232a35;
+    padding: 0 16px;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    height: 50px;
+    font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+    font-size: .875rem;
+    flex-wrap: wrap;
+    position: sticky;
+    top: 0;
+    z-index: 200;
+    backdrop-filter: blur(8px);
+}
+
+/* Home-link links, iets afgescheiden */
+.site-nav a.nav-home {
+    color: #e6e9ee;
+    font-weight: 700;
+    font-size: .9rem;
+    text-decoration: none;
     display: flex;
     align-items: center;
     gap: 6px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-size: 0.88rem;
-    flex-wrap: wrap;
+    padding: 6px 10px 6px 6px;
+    border-radius: 8px;
+    margin-right: 8px;
+    transition: background .15s;
+    letter-spacing: -.01em;
 }
-.site-nav a { color: #4cc38a; text-decoration: none; font-weight: 600; display: flex; align-items: center; gap: 5px; }
-.site-nav a:hover { text-decoration: underline; }
-.site-nav .sep { color: #3a414d; padding: 0 4px; }
-.site-nav .nav-actief { color: #9aa4b2; padding: 0 2px; }
+.site-nav a.nav-home:hover { background: rgba(255,255,255,.07); text-decoration: none; }
+
+.site-nav a.nav-home svg {
+    opacity: .6;
+}
+
+/* Module-links */
+.site-nav a {
+    color: #8a94a2;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 6px 12px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: color .15s, background .15s;
+}
+.site-nav a:hover {
+    color: #e6e9ee;
+    background: rgba(255,255,255,.07);
+    text-decoration: none;
+}
+
+/* Actieve pagina */
+.site-nav .nav-actief {
+    color: #e6e9ee;
+    background: rgba(255,255,255,.1);
+    font-weight: 600;
+    padding: 6px 12px;
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,.08);
+}
+
+/* Verberg punt-separatoren */
+.site-nav .sep { display: none; }
+
+/* Budget-sublinks: iets kleiner en subtieler dan hoofdlinks */
+.site-nav a.nav-sub,
+.site-nav span.nav-actief.nav-sub {
+    font-size: .8rem;
+    padding: 4px 10px;
+    opacity: .85;
+}

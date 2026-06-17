@@ -19,13 +19,13 @@
     <label class="form-label" for="kleur">Kleur</label>
     <div class="flex items-center gap-3">
         <input type="color" name="kleur" id="kleur" value="{{ old('kleur', $categorie?->kleur ?? '#6366f1') }}"
-            class="h-10 w-16 rounded-xl border border-gray-200 cursor-pointer p-1">
-        <span class="text-xs text-gray-400">Kies een kleur voor deze categorie</span>
+            class="h-10 w-16 rounded-xl border border-rand cursor-pointer p-1 bg-paneel">
+        <span class="text-xs text-gedempt">Kies een kleur voor deze categorie</span>
     </div>
 </div>
 
 <div>
-    <label class="form-label" for="icoon">Icoon <span class="text-gray-400 font-normal">(Font Awesome klasse, optioneel)</span></label>
+    <label class="form-label" for="icoon">Icoon <span class="text-gedempt font-normal">(Font Awesome klasse, optioneel)</span></label>
     <input type="text" name="icoon" id="icoon" class="form-input"
         value="{{ old('icoon', $categorie?->icoon) }}" placeholder="fa-solid fa-cart-shopping">
 </div>
@@ -35,5 +35,5 @@
     <input type="text" name="trefwoorden" id="trefwoorden" class="form-input"
         value="{{ old('trefwoorden', $categorie?->trefwoorden ? implode(', ', $categorie->trefwoorden) : '') }}"
         placeholder="lidl, albert heijn, ah, jumbo">
-    <p class="text-xs text-gray-400 mt-1">Komma-gescheiden. Als een omschrijving een trefwoord bevat, wordt deze categorie automatisch toegewezen bij import.</p>
+    <p class="text-xs text-gedempt mt-1">Komma-gescheiden. Als een omschrijving een trefwoord bevat, wordt deze categorie automatisch toegewezen bij import.</p>
 </div>
