@@ -2,11 +2,18 @@
 
 namespace App\Models;
 
+use App\Traits\HoortBijGebruiker;
 use Illuminate\Database\Eloquent\Model;
 
 class Account extends Model
 {
-    protected $fillable = ['naam', 'type', 'bank', 'kleur', 'icoon', 'beginsaldo'];
+    use HoortBijGebruiker;
+
+    protected $fillable = ['user_id', 'naam', 'type', 'bank', 'kleur', 'icoon', 'beginsaldo'];
+
+    protected $casts = [
+        'beginsaldo' => 'encrypted',
+    ];
 
     public function transactions()
     {
@@ -25,11 +32,11 @@ class Account extends Model
 
     public function getSaldoAttribute(): float
     {
-        $inkomsten = $this->transactions()->where('type', 'inkomst')->sum('bedrag');
-        $uitgaven = $this->transactions()->where('type', 'uitgave')->sum('bedrag');
-        $inkomend = $this->transfersNaar()->sum('bedrag');
-        $uitgaand = $this->transfersVan()->sum('bedrag');
+        $inkomsten = $this->transactions()->where('type', 'inkomst')->get()->sum(fn($t) => (float) $t->bedrag);
+        $uitgaven  = $this->transactions()->where('type', 'uitgave')->get()->sum(fn($t) => (float) $t->bedrag);
+        $inkomend  = $this->transfersNaar()->get()->sum(fn($t) => (float) $t->bedrag);
+        $uitgaand  = $this->transfersVan()->get()->sum(fn($t) => (float) $t->bedrag);
 
-        return $this->beginsaldo + $inkomsten - $uitgaven + $inkomend - $uitgaand;
+        return (float) $this->beginsaldo + $inkomsten - $uitgaven + $inkomend - $uitgaand;
     }
 }

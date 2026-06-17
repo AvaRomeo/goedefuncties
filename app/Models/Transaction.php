@@ -9,7 +9,9 @@ class Transaction extends Model
     protected $fillable = ['account_id', 'category_id', 'type', 'bedrag', 'datum', 'omschrijving'];
 
     protected $casts = [
-        'datum' => 'date',
+        'datum'        => 'date',
+        'bedrag'       => 'encrypted',
+        'omschrijving' => 'encrypted',
     ];
 
     public function account()

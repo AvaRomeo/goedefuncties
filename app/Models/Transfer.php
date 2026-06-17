@@ -9,7 +9,9 @@ class Transfer extends Model
     protected $fillable = ['van_account_id', 'naar_account_id', 'bedrag', 'datum', 'omschrijving'];
 
     protected $casts = [
-        'datum' => 'date',
+        'datum'        => 'date',
+        'bedrag'       => 'encrypted',
+        'omschrijving' => 'encrypted',
     ];
 
     public function vanAccount()

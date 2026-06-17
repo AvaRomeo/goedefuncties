@@ -41,16 +41,17 @@ class TransactieImportController extends Controller
         foreach ($transacties as $data) {
             $omschrijving = $data['omschrijving'] !== '' ? $data['omschrijving'] : null;
 
-            $bestaatAl = Transaction::where('account_id', $rekening->id)
+            // Bedrag en omschrijving zijn versleuteld — vergelijking in PHP na ophalen op datum+type.
+            $kandidaten = Transaction::where('account_id', $rekening->id)
                 ->whereDate('datum', $data['datum'])
-                ->where('bedrag', round($data['bedrag'], 2))
                 ->where('type', $data['type'])
-                ->where(function ($q) use ($omschrijving) {
-                    $omschrijving === null
-                        ? $q->whereNull('omschrijving')
-                        : $q->where('omschrijving', $omschrijving);
-                })
-                ->exists();
+                ->get();
+
+            $bedragGerond = round($data['bedrag'], 2);
+            $bestaatAl = $kandidaten->contains(function ($t) use ($bedragGerond, $omschrijving) {
+                return (float) $t->bedrag === (float) $bedragGerond
+                    && $t->omschrijving === $omschrijving;
+            });
 
             if ($bestaatAl) {
                 $overgeslagen++;

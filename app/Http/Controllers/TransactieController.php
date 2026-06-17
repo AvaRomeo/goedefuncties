@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Account;
 use App\Models\Category;
 use App\Models\Transaction;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class TransactieController extends Controller
@@ -13,12 +14,35 @@ class TransactieController extends Controller
     {
         $zoek = $request->input('zoek');
 
-        $transacties = Transaction::with(['account', 'category'])
-            ->when($zoek, fn($q) => $q->where('omschrijving', 'like', '%' . $zoek . '%'))
-            ->orderByDesc('datum')
-            ->orderByDesc('id')
-            ->paginate(50)
-            ->withQueryString();
+        // Beperk tot accounts van de ingelogde gebruiker (Account heeft global scope op user_id).
+        $accountIds = Account::pluck('id');
+
+        if ($zoek) {
+            // Omschrijving is versleuteld — filteren in PHP na ophalen.
+            $zoekLower = strtolower($zoek);
+            $alle = Transaction::with(['account', 'category'])
+                ->whereIn('account_id', $accountIds)
+                ->orderByDesc('datum')
+                ->orderByDesc('id')
+                ->get()
+                ->filter(fn($t) => str_contains(strtolower((string) $t->omschrijving), $zoekLower));
+
+            $pagina = max(1, (int) $request->input('page', 1));
+            $transacties = new \Illuminate\Pagination\LengthAwarePaginator(
+                $alle->forPage($pagina, 50)->values(),
+                $alle->count(),
+                50,
+                $pagina,
+                ['path' => $request->url(), 'query' => $request->query()]
+            );
+        } else {
+            $transacties = Transaction::with(['account', 'category'])
+                ->whereIn('account_id', $accountIds)
+                ->orderByDesc('datum')
+                ->orderByDesc('id')
+                ->paginate(50)
+                ->withQueryString();
+        }
 
         return view('transacties.index', compact('transacties', 'zoek'));
     }
