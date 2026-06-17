@@ -114,7 +114,7 @@ class SqlDataController extends Controller
             return '(' . implode(', ', array_map(fn($w) => $this->formateerSqlWaarde($w), $rij)) . ')';
         }, $rijen);
 
-        return 'INSERT INTO `' . $tabel . '`' . $kolomDeel . ' VALUES' . "\n"
+        return 'INSERT IGNORE INTO `' . $tabel . '`' . $kolomDeel . ' VALUES' . "\n"
             . implode(",\n", $waarden) . ";\n";
     }
 
@@ -282,7 +282,8 @@ class SqlDataController extends Controller
                 continue;
             }
             if ($c === ',' && !$inStr) {
-                $waarden[] = $huidig === 'NULL' ? null : $huidig;
+                $trimmed   = trim($huidig);
+                $waarden[] = $trimmed === 'NULL' ? null : $trimmed;
                 $huidig = '';
                 continue;
             }
@@ -290,7 +291,8 @@ class SqlDataController extends Controller
             $huidig .= $c;
         }
 
-        $waarden[] = $huidig === 'NULL' ? null : $huidig;
+        $trimmed   = trim($huidig);
+        $waarden[] = $trimmed === 'NULL' ? null : $trimmed;
         return $waarden;
     }
 
