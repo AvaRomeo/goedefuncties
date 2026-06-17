@@ -2,6 +2,11 @@
 
     <div class="max-w-[900px] mx-auto px-4 pt-10 pb-16">
 
+        <a href="{{ route('scouting.home') }}" class="text-gedempt text-sm hover:text-accent transition-colors mb-6 inline-flex items-center gap-1.5">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+            Terug naar Scouting
+        </a>
+
         <div class="flex items-center justify-between mb-6">
             <div>
                 <h1 class="text-[1.45rem] font-semibold tracking-tight text-tekst">Kampen</h1>
@@ -32,7 +37,6 @@
                                 <span>{{ $kamp->start_datum->format('d M Y') }} – {{ $kamp->eind_datum->format('d M Y') }}</span>
                                 @if($kamp->locatie)<span>· {{ $kamp->locatie }}</span>@endif
                                 <span>· {{ $kamp->deelnames_count }} {{ $kamp->deelnames_count === 1 ? 'deelnemer' : 'deelnemers' }}</span>
-                                @if($kamp->prijs)<span>· € {{ number_format($kamp->prijs, 2, ',', '.') }}</span>@endif
                             </div>
                         </div>
                         <div class="flex items-center gap-3 shrink-0">

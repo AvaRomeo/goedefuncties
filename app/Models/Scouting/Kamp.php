@@ -10,18 +10,22 @@ class Kamp extends Model
     protected $table = 'scouting_kampen';
 
     protected $fillable = [
-        'naam', 'start_datum', 'eind_datum', 'locatie', 'beschrijving', 'prijs',
+        'naam', 'start_datum', 'eind_datum', 'locatie', 'beschrijving',
     ];
 
     protected $casts = [
         'start_datum' => 'date',
         'eind_datum'  => 'date',
-        'prijs'       => 'decimal:2',
     ];
 
     public function deelnames(): HasMany
     {
         return $this->hasMany(Kampdeelname::class, 'kamp_id');
+    }
+
+    public function kampleiding(): HasMany
+    {
+        return $this->hasMany(Kampleiding::class, 'kamp_id');
     }
 
     public function getDuurAttribute(): int

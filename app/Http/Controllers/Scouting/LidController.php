@@ -22,7 +22,12 @@ class LidController extends Controller
     public function opslaan(Request $request)
     {
         $data = $this->valideer($request);
-        Lid::create($data);
+        $lid = Lid::create($data);
+
+        if ($request->wantsJson()) {
+            return response()->json(['id' => $lid->id, 'naam' => $lid->naam]);
+        }
+
         return redirect()->route('scouting.leden.index')->with('succes', 'Lid aangemaakt.');
     }
 
@@ -46,13 +51,7 @@ class LidController extends Controller
     private function valideer(Request $request): array
     {
         return $request->validate([
-            'naam'            => 'required|string|max:255',
-            'geboortedatum'   => 'nullable|date',
-            'speltak'         => 'required|string|max:100',
-            'email_ouder'     => 'nullable|email|max:255',
-            'telefoon_ouder'  => 'nullable|string|max:50',
-            'actief'          => 'boolean',
-            'opmerkingen'     => 'nullable|string',
+            'naam' => 'required|string|max:255',
         ]);
     }
 }

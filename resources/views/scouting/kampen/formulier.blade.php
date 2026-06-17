@@ -44,18 +44,10 @@
                     </div>
                 </div>
 
-                <div class="grid grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-sm text-gedempt mb-1.5">Locatie</label>
-                        <input type="text" name="locatie" value="{{ old('locatie', $kamp->locatie) }}"
-                               class="w-full bg-paneel border border-rand rounded-lg px-3 py-2.5 text-tekst text-sm outline-none focus:border-accent transition-colors">
-                    </div>
-                    <div>
-                        <label class="block text-sm text-gedempt mb-1.5">Prijs (€)</label>
-                        <input type="number" name="prijs" step="0.01" min="0"
-                               value="{{ old('prijs', $kamp->prijs) }}"
-                               class="w-full bg-paneel border border-rand rounded-lg px-3 py-2.5 text-tekst text-sm outline-none focus:border-accent transition-colors">
-                    </div>
+                <div>
+                    <label class="block text-sm text-gedempt mb-1.5">Locatie</label>
+                    <input type="text" name="locatie" value="{{ old('locatie', $kamp->locatie) }}"
+                           class="w-full bg-paneel border border-rand rounded-lg px-3 py-2.5 text-tekst text-sm outline-none focus:border-accent transition-colors">
                 </div>
 
                 <div>
