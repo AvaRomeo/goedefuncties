@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Tools;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -46,7 +47,7 @@ class SqlDataController extends Controller
         ]);
 
         $sql      = file_get_contents($request->file('dump')->getRealPath());
-        $sql      = str_replace(["\r\n", "\r"], "\n", $sql); // normaliseer regeleinden
+        $sql      = str_replace(["\r\n", "\r"], "\n", $sql);
         $tabellen = $this->parseerTabellen($sql);
 
         if (empty($tabellen)) {
@@ -148,7 +149,6 @@ class SqlDataController extends Controller
         $escaped    = preg_quote($tabel, '/');
         $kolomNamen = [];
 
-        // Kolommen uit CREATE TABLE
         if (preg_match('/CREATE TABLE `' . $escaped . '`\s*\((.*?)\)\s*(?:ENGINE|;)/si', $sql, $m)) {
             preg_match_all('/^\s*`([^`]+)`/m', $m[1], $cols);
             $kolomNamen = array_values(array_filter(
@@ -157,7 +157,6 @@ class SqlDataController extends Controller
             ));
         }
 
-        // Rijen uit INSERT INTO — positie-gebaseerd zodat multi-line VALUES werken
         $rijen = [];
         preg_match_all(
             '/^INSERT\s+INTO\s+`' . $escaped . '`\s*(?:\([^)]*\)\s*)?VALUES\s*/mi',
@@ -176,7 +175,6 @@ class SqlDataController extends Controller
             }
         }
 
-        // Kolommen uit INSERT als CREATE TABLE ontbreekt
         if (empty($kolomNamen) && !empty($rijen)) {
             if (preg_match('/^INSERT INTO `' . $escaped . '`\s*\(([^)]+)\)\s*VALUES/mi', $sql, $colMatch)) {
                 preg_match_all('/`([^`]+)`/', $colMatch[1], $colNames);
@@ -211,13 +209,12 @@ class SqlDataController extends Controller
                 } elseif ($c === ')') {
                     $diepte--;
                     if ($diepte === 0) {
-                        // Kijk of er een volgende rij-groep volgt (komma + haakje openen)
                         $j = $i + 1;
                         while ($j < $len && ($sql[$j] === ',' || $sql[$j] === ' ' || $sql[$j] === "\t" || $sql[$j] === "\n" || $sql[$j] === "\r")) {
                             $j++;
                         }
                         if ($j < $len && $sql[$j] === '(') {
-                            $i = $j - 1; // ga door naar de volgende rij-groep
+                            $i = $j - 1;
                             continue;
                         }
                         return substr($sql, $start, $i - $start + 1);

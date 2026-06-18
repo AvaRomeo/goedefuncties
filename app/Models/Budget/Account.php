@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Budget;
 
 use App\Traits\HoortBijGebruiker;
 use Illuminate\Database\Eloquent\Model;

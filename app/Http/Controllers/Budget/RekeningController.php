@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Budget;
 
-use App\Models\Account;
+use App\Http\Controllers\Controller;
+use App\Models\Budget\Account;
 use Illuminate\Http\Request;
 
 class RekeningController extends Controller

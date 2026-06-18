@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Budget;
 
-use App\Models\Account;
-use App\Models\Category;
-use App\Models\Transaction;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Controller;
+use App\Models\Budget\Account;
+use App\Models\Budget\Category;
+use App\Models\Budget\Transaction;
 use Illuminate\Http\Request;
 
 class TransactieController extends Controller

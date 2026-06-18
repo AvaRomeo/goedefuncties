@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Budget;
 
-use App\Models\Account;
-use App\Models\Category;
-use App\Models\Transaction;
+use App\Http\Controllers\Controller;
+use App\Models\Budget\Account;
+use App\Models\Budget\Category;
+use App\Models\Budget\Transaction;
 use App\Services\BunqCsvParser;
 use App\Services\RabobankCsvParser;
 use Illuminate\Http\Request;
@@ -78,7 +79,7 @@ class TransactieImportController extends Controller
         return redirect()->route('transacties.index')->with('succes', $bericht);
     }
 
-    private function zoekCategorie($categorieen, ?string $omschrijving, string $type): ?int
+    private function zoekCategorie(\Illuminate\Support\Collection $categorieen, ?string $omschrijving, string $type): ?int
     {
         if (blank($omschrijving)) return null;
 

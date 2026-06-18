@@ -154,7 +154,7 @@ body::after {
 .form-input:focus                       { border-color: #f0c040 !important; box-shadow: 0 0 0 3px rgba(240,192,64,.18) !important; outline: none !important; }
 .form-input-error                       { border-color: #dc2626 !important; }
 .form-error                             { color: #fca5a5 !important; }
-.btn-primary                            { background-color: #b8901a !important; color: #1a1408 !important; }
+.btn-primary                            { background-color: #b8901a !important; color: #1a1408 !important; padding: 0.5rem 1.25rem !important; border-radius: 0.75rem !important; font-size: 0.875rem !important; font-weight: 600 !important; display: inline-flex !important; align-items: center !important; transition: background-color .15s !important; text-decoration: none !important; }
 .btn-primary:hover                      { background-color: #d4a820 !important; color: #1a1408 !important; }
 .btn-danger                             { color: #f87171 !important; }
 

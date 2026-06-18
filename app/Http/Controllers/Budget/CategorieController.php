@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Budget;
 
-use App\Models\Category;
+use App\Http\Controllers\Controller;
+use App\Models\Budget\Category;
 use Illuminate\Http\Request;
 
 class CategorieController extends Controller
