@@ -10,8 +10,7 @@ class CategorieController extends Controller
 {
     public function index()
     {
-        $categorieen = Category::orderBy('type')->orderBy('naam')->get();
-        return view('categorieen.index', compact('categorieen'));
+        return view('categorieen.index');
     }
 
     public function aanmaken()

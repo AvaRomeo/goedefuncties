@@ -10,8 +10,7 @@ class RekeningController extends Controller
 {
     public function index()
     {
-        $rekeningen = Account::all();
-        return view('rekeningen.index', compact('rekeningen'));
+        return view('rekeningen.index');
     }
 
     public function aanmaken()

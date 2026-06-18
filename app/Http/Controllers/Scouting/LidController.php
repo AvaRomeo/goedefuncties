@@ -10,8 +10,7 @@ class LidController extends Controller
 {
     public function index()
     {
-        $leden = Lid::orderBy('naam')->get();
-        return view('scouting.leden.index', compact('leden'));
+        return view('scouting.leden.index');
     }
 
     public function aanmaken()

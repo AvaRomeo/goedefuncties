@@ -12,8 +12,7 @@ class KampController extends Controller
 {
     public function index()
     {
-        $kampen = Kamp::withCount('deelnames')->orderBy('start_datum', 'desc')->get();
-        return view('scouting.kampen.index', compact('kampen'));
+        return view('scouting.kampen.index');
     }
 
     public function aanmaken()

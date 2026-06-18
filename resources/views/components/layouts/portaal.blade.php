@@ -174,5 +174,6 @@
     </script>
     @endif
 
+    @livewireScripts
 </body>
 </html>
