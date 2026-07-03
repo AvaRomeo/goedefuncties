@@ -1,7 +1,12 @@
 {
   "permissions": {
     "allow": [
-      "Bash(Test-Path \"C:\\\\laragon\\\\www\\\\goedefuncties\\\\projects\\\\budget\\\\vendor\\\\autoload.php\")"
+      "Bash(Test-Path \"C:\\\\laragon\\\\www\\\\goedefuncties\\\\projects\\\\budget\\\\vendor\\\\autoload.php\")",
+      "Bash(grep -E '\\\\.\\(php|html|js|css\\)$')",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(php artisan tinker '--execute= *)",
+      "Bash(php artisan *)"
     ]
   }
 }
