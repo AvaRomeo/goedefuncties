@@ -7,6 +7,12 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
+## Belangrijk: APP_KEY nooit opnieuw genereren
+
+De `.env` (inclusief `APP_KEY`) staat bewust in versiebeheer, samen met `database/database.sqlite`. Gevoelige velden (o.a. `beginsaldo`, `bedrag`, `omschrijving` in de Budget-modellen) zijn met deze `APP_KEY` versleuteld opgeslagen in de database.
+
+**Draai nooit `php artisan key:generate`.** Een nieuwe key maakt alle bestaande versleutelde budgetgegevens onherstelbaar onleesbaar — er is geen manier om ze daarna nog te ontsleutelen. Werk je op een nieuwe/andere laptop, doe dan gewoon een `git pull` zodat je de bestaande, juiste `.env` binnenkrijgt.
+
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
