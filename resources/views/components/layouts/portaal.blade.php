@@ -38,6 +38,7 @@
                 ['naam' => 'SQL Data',         'route' => 'sql-data.index',        'patroon' => 'sql-data*',        'auth' => false],
                 ['naam' => 'Budget',           'route' => 'budget.home',           'patroon' => 'budget*|rekeningen*|transacties*|categorieen*', 'auth' => true],
                 ['naam' => 'GPX Viewer',       'route' => 'gpx-viewer.index',      'patroon' => 'gpx-viewer*',      'auth' => false],
+                ['naam' => 'ETS2 Dashboard',   'route' => 'ets2-dashboard.index',  'patroon' => 'ets2-dashboard*',  'auth' => false],
                 ['naam' => 'Scouting',         'route' => 'scouting.home',         'patroon' => 'scouting*',        'auth' => true],
             ];
         @endphp

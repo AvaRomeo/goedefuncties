@@ -30,6 +30,7 @@
                 ['naam' => 'SQL Data',         'route' => 'sql-data.index',        'patroon' => 'sql-data*'],
                 ['naam' => 'Budget',           'route' => 'budget.home',           'patroon' => 'budget*|rekeningen*|transacties*|categorieen*'],
                 ['naam' => 'GPX Viewer',       'route' => 'gpx-viewer.index',      'patroon' => 'gpx-viewer*'],
+                ['naam' => 'ETS2 Dashboard',   'route' => 'ets2-dashboard.index',  'patroon' => 'ets2-dashboard*'],
                 ['naam' => 'Scouting',         'route' => 'scouting.home',         'patroon' => 'scouting*'],
             ];
         @endphp

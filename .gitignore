@@ -19,6 +19,7 @@
 /storage/*.key
 /storage/debugbar
 /storage/pail
+/storage/app/ets2
 /vendor
 Homestead.json
 Homestead.yaml
