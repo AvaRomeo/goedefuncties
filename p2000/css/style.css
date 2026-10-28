@@ -1,0 +1,129 @@
+:root {
+    --achtergrond: #f5f6f8;
+    --kaart: #ffffff;
+    --tekst: #1f2328;
+    --zacht: #6b7280;
+    --rand: #e3e6ea;
+    --accent: #2563eb;
+    --rood: #dc2626;
+    --oranje: #ea580c;
+    --groen: #16a34a;
+    --nieuw: #fef9c3;
+}
+@media (prefers-color-scheme: dark) {
+    :root {
+        --achtergrond: #16181d;
+        --kaart: #1f2229;
+        --tekst: #e6e8eb;
+        --zacht: #9aa1ab;
+        --rand: #2e323b;
+        --accent: #60a5fa;
+        --rood: #f87171;
+        --oranje: #fb923c;
+        --groen: #4ade80;
+        --nieuw: #3f3a12;
+    }
+}
+* { box-sizing: border-box; }
+body {
+    margin: 0;
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    background: var(--achtergrond);
+    color: var(--tekst);
+}
+main { max-width: 1400px; margin: 0 auto; padding: 32px 16px 48px; }
+a { color: var(--accent); }
+.terug { display: inline-block; margin-bottom: 16px; text-decoration: none; font-size: .9rem; }
+h1 { margin: 0 0 20px; font-size: 1.75rem; }
+button { font: inherit; cursor: pointer; }
+button.link { padding: 0; color: var(--accent); background: none; border: 0; text-decoration: underline; }
+
+.filters { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 16px; margin-bottom: 12px; }
+.regio span { display: block; margin-bottom: 6px; font-weight: 600; }
+.regio select {
+    width: 100%;
+    min-width: 260px;
+    padding: 9px 12px;
+    font: inherit;
+    color: inherit;
+    background: var(--kaart);
+    border: 1px solid var(--rand);
+    border-radius: 8px;
+}
+.diensten { display: flex; flex-wrap: wrap; gap: 6px; flex: 1 1 280px; min-width: 0; }
+.dienst {
+    padding: 8px 14px;
+    color: var(--zacht);
+    background: var(--kaart);
+    border: 1px solid var(--rand);
+    border-radius: 999px;
+}
+.dienst.actief { color: var(--tekst); border-color: var(--tekst); font-weight: 600; }
+.dienst[data-dienst="Brandweer"].actief { border-color: #dc2626; }
+.dienst[data-dienst="Ambulance"].actief { border-color: #eab308; }
+.dienst[data-dienst="Politie"].actief { border-color: #2563eb; }
+.dienst[data-dienst="Kustwacht"].actief { border-color: #ea580c; }
+
+.status { margin: 0 0 16px; color: var(--zacht); font-size: .9rem; }
+.live-teken { color: var(--groen); font-weight: 600; animation: knipper 2s ease-in-out infinite; }
+@keyframes knipper { 50% { opacity: .4; } }
+
+.indeling { display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; }
+.kaart {
+    height: 380px;
+    border: 1px solid var(--rand);
+    border-radius: 10px;
+    z-index: 0;
+}
+@media (min-width: 1000px) {
+    .indeling { grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); align-items: start; }
+    .lijst { order: -1; max-height: calc(100vh - 220px); overflow-y: auto; }
+    .kaart { position: sticky; top: 16px; height: calc(100vh - 220px); min-height: 420px; }
+}
+
+.lijst { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; }
+.melding {
+    padding: 10px 12px 10px 14px;
+    background: var(--kaart);
+    border: 1px solid var(--rand);
+    border-left: 5px solid var(--dienst);
+    border-radius: 8px;
+}
+.melding.nieuw { animation: oplichten 6s ease-out; }
+@keyframes oplichten { from { background: var(--nieuw); } }
+.melding-kop { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px; margin-bottom: 4px; }
+.tijd { font-weight: 700; font-variant-numeric: tabular-nums; }
+.geleden, .dienst-naam, .melding-voet { color: var(--zacht); font-size: .85rem; }
+.dienst-naam { margin-left: auto; }
+.bericht { display: block; font-family: ui-monospace, Consolas, monospace; font-size: .9rem; word-break: break-word; }
+.melding-voet { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 6px; }
+.melding-voet:empty { display: none; }
+
+.eenheden { margin-top: 8px; font-size: .85rem; }
+.roepnummers { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 6px; }
+.roepnummer {
+    padding: 2px 8px;
+    color: var(--zacht);
+    border: 1px solid var(--dienst);
+    border-radius: 6px;
+}
+.roepnummer .nummer { color: var(--tekst); font-weight: 700; font-variant-numeric: tabular-nums; }
+.capcode-lijst { margin: 0; padding-left: 18px; }
+.capcode-lijst li { margin: 1px 0; }
+.zacht { color: var(--zacht); }
+.groepscodes { display: inline-block; margin-top: 2px; color: var(--zacht); cursor: help; }
+.melding-voet button.link { font-size: .85rem; }
+.prio { padding: 1px 7px; font-size: .8rem; font-weight: 700; border-radius: 5px; color: #fff; background: var(--zacht); }
+.prio.hoog { background: #dc2626; }
+.prio.midden { background: #ea580c; }
+.leeg { display: block; padding: 24px; color: var(--zacht); text-align: center; border: 1px dashed var(--rand); border-radius: 8px; }
+
+.popup-titel { display: block; font-weight: 700; margin-bottom: 4px; }
+.popup-regel { display: block; font-family: ui-monospace, Consolas, monospace; font-size: .85em; }
+.popup-regel.zacht { font-family: inherit; color: #6b7280; margin-top: 4px; }
+
+.voetnoot { margin-top: 24px; color: var(--zacht); font-size: .85rem; line-height: 1.5; }
+
+@media (prefers-reduced-motion: reduce) {
+    .live-teken, .melding.nieuw { animation: none; }
+}
