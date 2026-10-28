@@ -1,0 +1,249 @@
+:root {
+    --achtergrond: #f5f6f8;
+    --kaart: #ffffff;
+    --tekst: #1f2328;
+    --zacht: #6b7280;
+    --rand: #e3e6ea;
+    --accent: #2563eb;
+    --kop: #1e293b;
+    --rood: #dc2626;
+    --groen: #16a34a;
+    --waarschuwing: #fef3c7;
+    --waarschuwing-tekst: #92400e;
+}
+@media (prefers-color-scheme: dark) {
+    :root {
+        --achtergrond: #16181d;
+        --kaart: #1f2229;
+        --tekst: #e6e8eb;
+        --zacht: #9aa1ab;
+        --rand: #2e323b;
+        --accent: #60a5fa;
+        --kop: #0f172a;
+        --rood: #f87171;
+        --groen: #4ade80;
+        --waarschuwing: #422006;
+        --waarschuwing-tekst: #fcd34d;
+    }
+}
+* { box-sizing: border-box; }
+body {
+    margin: 0;
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    background: var(--achtergrond);
+    color: var(--tekst);
+}
+main { max-width: 960px; margin: 0 auto; padding: 32px 16px 48px; }
+a { color: var(--accent); }
+.terug { display: inline-block; margin-bottom: 16px; text-decoration: none; font-size: .9rem; }
+h1 { margin: 0 0 24px; font-size: 1.75rem; }
+
+.uitleg {
+    padding: 20px 24px;
+    background: var(--kaart);
+    border: 1px solid var(--rand);
+    border-radius: 10px;
+    line-height: 1.6;
+}
+.uitleg h2 { margin-top: 0; font-size: 1.2rem; }
+button {
+    padding: 10px 16px;
+    font: inherit;
+    color: #fff;
+    background: var(--accent);
+    border: 0;
+    border-radius: 8px;
+    cursor: pointer;
+}
+button:disabled { opacity: .6; cursor: wait; }
+button.link { padding: 0; color: var(--accent); background: none; text-decoration: underline; }
+
+.zoeken { display: block; margin-bottom: 6px; font-weight: 600; }
+.zoekrij { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+.zoekrij input {
+    flex: 1 1 260px;
+    max-width: 420px;
+    padding: 10px 12px;
+    font-size: 1rem;
+    color: inherit;
+    background: var(--kaart);
+    border: 1px solid var(--rand);
+    border-radius: 8px;
+}
+.zoekrij input:focus { outline: 2px solid var(--accent); border-color: transparent; }
+.knop-licht {
+    color: var(--tekst);
+    background: var(--kaart);
+    border: 1px solid var(--rand);
+}
+.knop-licht:hover:not(:disabled) { border-color: var(--accent); }
+.knop-licht:disabled { opacity: .5; cursor: default; }
+
+.favorieten { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+.favoriet {
+    display: inline-flex;
+    align-items: stretch;
+    background: var(--kaart);
+    border: 1px solid var(--rand);
+    border-radius: 999px;
+    overflow: hidden;
+}
+.favoriet.actief { border-color: var(--accent); }
+.favoriet button { padding: 6px 4px 6px 14px; font-size: .9rem; color: var(--tekst); background: none; border-radius: 0; }
+.favoriet button.wis { padding: 6px 12px 6px 8px; color: var(--zacht); }
+.favoriet button.wis:hover { color: var(--rood); }
+
+.buurt {
+    display: grid;
+    gap: 4px;
+    max-width: 520px;
+    margin-bottom: 16px;
+    color: var(--zacht);
+    font-size: .9rem;
+}
+.buurt button {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 10px 12px;
+    color: var(--tekst);
+    text-align: left;
+    background: var(--kaart);
+    border: 1px solid var(--rand);
+}
+.buurt button:hover { border-color: var(--accent); }
+.buurt-afstand { color: var(--zacht); white-space: nowrap; }
+
+.filter { margin: 0 0 12px; font-size: .9rem; }
+.status { margin: 0 0 16px; color: var(--zacht); font-size: .9rem; }
+
+.meldingen {
+    margin: 0 0 16px;
+    padding: 12px 16px 12px 32px;
+    background: var(--waarschuwing);
+    color: var(--waarschuwing-tekst);
+    border-radius: 8px;
+    font-size: .9rem;
+}
+
+.bord {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--kaart);
+    border: 1px solid var(--rand);
+    border-radius: 10px;
+    overflow: hidden;
+}
+.bord th {
+    padding: 10px 12px;
+    text-align: left;
+    font-size: .85rem;
+    color: #fff;
+    background: var(--kop);
+}
+.bord td { padding: 10px 12px; border-top: 1px solid var(--rand); vertical-align: top; }
+.bord td > span { display: block; }
+
+.tijd { font-weight: 700; font-variant-numeric: tabular-nums; font-size: 1.1rem; }
+.vertraging { color: var(--rood); font-weight: 600; font-size: .9rem; }
+.over, .soort, .vervoerder { color: var(--zacht); font-size: .85rem; }
+.richting { font-weight: 600; }
+.live { color: var(--groen); font-size: .8rem; }
+.over { font-variant-numeric: tabular-nums; }
+.over.nu { color: var(--groen); font-weight: 700; }
+.live-teken { color: var(--groen); font-weight: 600; animation: knipper 2s ease-in-out infinite; }
+@keyframes knipper { 50% { opacity: .4; } }
+@media (prefers-reduced-motion: reduce) { .live-teken { animation: none; } }
+.melding { color: var(--rood); font-size: .85rem; }
+
+.lijn {
+    display: inline-block;
+    min-width: 2.6em;
+    padding: 3px 8px;
+    text-align: center;
+    font-weight: 700;
+    color: #fff;
+    background: #475569;
+    border-radius: 6px;
+}
+button.lijn:hover { outline: 2px solid var(--accent); outline-offset: 1px; }
+.perron {
+    display: inline-block !important;
+    min-width: 2em;
+    padding: 2px 6px;
+    text-align: center;
+    font-weight: 700;
+    border: 2px solid var(--rand);
+    border-radius: 6px;
+}
+.zonder-perron .kolom-perron { display: none; }
+.lijn-tram { background: #b45309; }
+.lijn-metro { background: #be123c; }
+.lijn-boot { background: #0e7490; }
+.lijn-trein { background: #1d4ed8; }
+.geannuleerd .tijd, .geannuleerd .richting { text-decoration: line-through; opacity: .6; }
+
+.voetnoot { margin-top: 24px; color: var(--zacht); font-size: .85rem; }
+
+.tabs { display: flex; gap: 4px; margin: -8px 0 24px; border-bottom: 1px solid var(--rand); }
+.tabs a {
+    padding: 8px 14px;
+    color: var(--zacht);
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+}
+.tabs a:hover { color: var(--tekst); }
+.tabs a.actief { color: var(--tekst); font-weight: 600; border-bottom-color: var(--accent); }
+
+main.breed { max-width: 1400px; }
+.grote-kaart {
+    height: calc(100vh - 240px);
+    min-height: 420px;
+    border: 1px solid var(--rand);
+    border-radius: 10px;
+    z-index: 0;
+}
+.grote-kaart.zoomen .voertuig { transition: none; }
+.kaart-knop {
+    width: 34px;
+    height: 34px;
+    padding: 0;
+    font-size: 16px;
+    background: #fff;
+    border: 2px solid rgba(0, 0, 0, .2);
+    border-radius: 4px;
+    background-clip: padding-box;
+}
+.kaart-knop:hover { background-color: #f4f4f4; }
+
+.kaart {
+    height: 380px;
+    margin-bottom: 16px;
+    border: 1px solid var(--rand);
+    border-radius: 10px;
+    z-index: 0; /* Leaflet-lagen niet boven de rest van de pagina */
+}
+.voertuig { transition: transform 2s linear; } /* bussen schuiven vloeiend naar hun nieuwe plek */
+.kaart.zoomen .voertuig { transition: none; }
+.voertuig-label {
+    display: inline-block;
+    padding: 2px 6px;
+    transform: translate(-50%, -50%);
+    font: 700 12px/1.3 system-ui, sans-serif;
+    color: #fff;
+    white-space: nowrap;
+    border: 2px solid #fff;
+    border-radius: 6px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, .35);
+}
+.voertuig-label.oud { opacity: .45; }
+.popup-titel { display: block; font-weight: 700; margin-bottom: 4px; }
+.popup-regel { display: block; }
+.popup-regel.zacht { color: #6b7280; font-size: .85em; }
+button.link.op-kaart { display: block; font-size: .8rem; color: var(--groen); }
+
+@media (max-width: 560px) {
+    .bord th:nth-child(5), .bord td:nth-child(5) { display: none; }
+    .bord td { padding: 8px; }
+}
