@@ -8,9 +8,15 @@ foreach (scandir(__DIR__) as $map) {
     if ($map[0] === '.' || in_array($map, GEEN_PROJECT, true) || !is_dir(__DIR__ . '/' . $map)) {
         continue;
     }
+    // Naam uit de <title> van het project, anders uit de mapnaam ("mijn-project" → "Mijn project").
+    $naam  = ucfirst(str_replace(['-', '_'], ' ', $map));
+    $index = __DIR__ . '/' . $map . '/index.php';
+    if (is_file($index) && preg_match('/<title>\s*(.*?)\s*<\/title>/is', file_get_contents($index), $titel)) {
+        $naam = $titel[1];
+    }
     $projecten[] = [
         'map'  => $map,
-        'naam' => ucfirst(str_replace(['-', '_'], ' ', $map)),
+        'naam' => $naam,
     ];
 }
 
